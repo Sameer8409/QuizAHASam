@@ -1,44 +1,44 @@
-import React, {Component} from 'react';
-import Header from '../../Components/Include/Header.js'; 
 import axios from 'axios'; 
-import Style from "../../css/Style.css"
-// import {Link} from 'react-router-dom';
-//import { Route } from 'react-router';
+import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
+import Style from "../../css/Style.css";
+import SweetAlert from 'sweetalert-react';
+import Header from '../../Components/Include/Header.js';
+import Footer from '../../Components/Include/Footer.js'; 
 export default class Game extends Component{
-
-        constructor(props){
+    constructor(props){
             super(props);
             this.state={
                 quizName:[],
                 email:''
                 }
             }     
-            componentDidMount(){
-                let e=this.props.location.state;
-        if(this.props.location.state==undefined)
+    componentWillMount() { 
+        console.log("Willmount");
+        if(localStorage.mydata == "null" && localStorage.mydata != "admin@gmail.com")
         {
-            this.props.history.push("/");
+            this.props.history.push("/")
         }
-        this.setState({
-            email:e
-        })
-    }  
-    handleform = (event) => {
-        event.preventDefault(); 
+        else{
+            if(this.props.location.state===undefined)
+            {
+                this.props.history.push("/Game")
+            }
         var self=this;
         axios.post('http://localhost:5000/api/getQuiz',{})
             .then(function(response){
                 let data = response.data;
+                console.log(data.quizName);
                 let getQuiz = [];
                 data.forEach((data) => {
-                    getQuiz.push(data.quizName[0].quizName);
+                    getQuiz.push(data.quizName);
                 });
                 self.setState({
                     quizName: getQuiz
                 });
-        })
+            })
+        }
     }
-
     handleQuiz = (event) => {
         event.preventDefault();
         let x = [];
@@ -51,55 +51,43 @@ export default class Game extends Component{
 render(){
     console.log("histopry", this.state.email);
     let list = this.state.quizName.map((data, index) => {
-        return (<li> <button id={index} type="button" onClick={this.handleQuiz} name="quizes" className="btn btn-success"> {data} </button> </li> );
-    });
+        return (<li><div className="media">
+                        <div className="media-body">
+                            <h4>{data}</h4>
+                            <p>Want to play this game please click on play now coresponding to the Quiz Name</p>
+                        </div>
+                        <div className="media-right align-self-center">
+                            <button id={index} type="button" onClick={this.handleQuiz} name="quizes" className="btn btn-default"> {"Play Now"} </button>
+                        </div>
+                    </div>
+                </li>
+            );
+        });
 
 	return(
-	<div className="container">
-	<Header/>
     <div className="Game">
-                <form method="post" name="handleform" onSubmit={this.handleform}>
-                <div className="row">
-                    <div className="col-lg-8">
-                        <h1 className="page-header">Select any quiz</h1>
-                    </div>
-                </div>
-                <div>
-                    <div className="row">
-                    <div className="col-md-12">
-                    
-                    </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-lg-8">
-                        <div className="panel panel-default">
-                            <div className="panel-heading">
-                               <h3> <i className="fa fa-list-ul"></i> <button id="showQuiz" type="submit" name="quizes" className="btn btn-success">Show Quizes</button></h3>
+        <Header/>
+        <div className="game">
+            <div className="constructor">
+                <section className="row-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2 className="text-center"><span>Quiz Game Listing</span>Created with <i className="fa fa-heart"></i> from<Link to="#"> Sameer Khan</Link></h2>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12  col-sm-12  col-xs-10 row-block">
+                                <ul id="sortable">
+                                    {list}                       
+                                </ul>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
-                        {/*<div className="panel panel-default">
-                                                    <div className="panel-heading">
-                                                        <i className="fa fa-users"></i> My Friends
-                                                    </div>
-                                                    <div className="panel-body">
-                                                        <div className="list-group">
-                                                        </div>
-                                                        <a href="#" className="btn btn-default btn-block">Add Friends</a>
-                                                    </div>
-                                                </div>*/}
-                    </div>
-                </div>
-                <ul>
-                    {list}
-                
-                </ul>
-
-                </form>
-                </div>
-            </div>   
-    )
-}
+                </section>
+            </div>
+        </div>  
+        <Footer/>    
+    </div>   
+)}
 }

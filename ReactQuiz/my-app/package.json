@@ -6,12 +6,17 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.0.0",
     "react": "^16.3.2",
+    "react-confirm-alert": "^2.0.5",
     "react-dom": "^16.3.2",
+    "react-js-pagination": "^3.0.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+    "react-slick": "^0.23.1",
     "react-validation": "^3.0.7",
-    "reactstrap": "^5.0.0-beta.3"
+    "reactstrap": "^5.0.0-beta.3",
+    "slick-carousel": "^1.8.1",
+    "sweetalert-react": "^0.4.11"
   },
   "scripts": {
     "start": "react-scripts start",

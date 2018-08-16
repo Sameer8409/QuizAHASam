@@ -1,11 +1,13 @@
-import React, {Component} from 'react'; 
-import {Link} from 'react-router-dom';
 import axios from 'axios';
-//import { Route } from 'react-router';
+import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
+import Footer from '../../Components/Include/Footer.js';
+import FirstHeader from '../../Components/Include/FirstHeader.js';
 export default class Signup extends Component{
 
     constructor(props){
         super(props);
+        this.click=this.click.bind(this);
         this.state={
             name:'',
             email:'',
@@ -17,13 +19,23 @@ export default class Signup extends Component{
         }
     }
 
+click = (event) => {
+    event.preventDefault();
+    this.handlename();
+    this.handleemail();
+    this.handlepasswords();
+    this.handleconfirm_password();
+    this.handlemobile();
+    this.handleform();
+
+}
 
     handlename=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
         let name = this.refs.name.value;
         // this.name=this.refs.name.value;
         var regex= /^[a-zA-Z ]{2,30}$/;
-        var text="Name should start with an alphabet";
+        var text="Name should start with an alphabet and must have atlest two character";
         if(!(name.match(regex))){
             document.getElementById("nameverify").innerHTML=text;
             return false;
@@ -38,7 +50,7 @@ export default class Signup extends Component{
         
     }
     handleemail=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
         let email=this.refs.email.value;
         var regex= "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
         var text="Email Address must have '@' and '.'"
@@ -56,7 +68,7 @@ export default class Signup extends Component{
         }
     }
     handlepasswords=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
         let password=this.refs.password.value;
         var regex= /^(?=.*[0-9])(?=.{6,})(?=.*[!@#$%^&*])/;
         var text=" use 6 to 16 character with at least one number and one special character(!@#$%^&*)";
@@ -74,7 +86,7 @@ export default class Signup extends Component{
         }
     }
     handleconfirm_password=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
         let confirm_password=this.refs.confirm_password.value;
         var pas=document.getElementById("pas").value;
         var text="Please enter the same password";
@@ -93,7 +105,7 @@ export default class Signup extends Component{
     }
     
     handlemobile=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
         let mobile=this.refs.mobile.value;
         var regex="^([7-9]{1})([0-9]{9})$";
         var text="Mobile number must have 10 digit and should start with 7,8 or 9.";
@@ -111,15 +123,9 @@ export default class Signup extends Component{
         }
     }
     handleform=(event)=>{
-        event.preventDefault();
-        // this.name=this.refs.name.value;
-        // this.email=this.refs.email.value;
-        // this.password=this.refs.password.value;
-        // this.confirm_password=this.refs.confirm_password.value;
-        // this.mobile=this.refs.mobile.value;
+        let text="You are already registered, Please Login with your email id or use another";
         if(this.state.name===""||this.state.email===""||this.state.password===""||this.state.confirm_password===""||this.state.mobile==="")
         {
-            alert("All fields are required");
             return false;
 
         }
@@ -133,34 +139,36 @@ export default class Signup extends Component{
         })
         .then(function (response) {
             if(response.data==="already exists")
-            {
-                alert("You are already registered, Please Login with your email id");
-                self.props.history.push('/');
+            {   
+                document.getElementById("emailverify").innerHTML=text; 
+                return false;
             }
             else{
-                if(response.data===""){
-                    alert("One or more fields are empty or invalid");
-                    self.props.history.push('/Signup');
-                }else
+                if(response.data.data==="admin@gmail.com")
                 {
-            alert("Welcome");
+                    localStorage.setItem('mydata', response.data.data); 
+                    self.props.history.push('/Dashboard', response.data.data);           
+                }
+                else{
+                    localStorage.setItem('mydata', response.data.data);
             self.props.history.push('/Play', self.state.email);
         }}
         })
         .catch(function(err){
             console.log("error");    
         });
-        
     }
 render(){
     return(
+<div className="signup">
+    <FirstHeader/>
     <div className="container">
         <div className="panel panel-primary signpanel">
-            <div className="panel-heading">
-                <h3> User s registration page </h3>
+            <div className="panel-heading signup">
+                <h3> User Registration Page </h3>
             </div>
             <div className="panel-body">
-                <form method="post" onSubmit={this.handleform}>
+                <form  method="post" onSubmit={this.click}>
                     <div className="form-group">
                         <label className="col-md-12 control-label">Name</label>
                         <div className="col-md-12 gutter-left">
@@ -191,13 +199,6 @@ render(){
                         </div>
                     </div>
 
-                    {/*<div className="form-group col-md-12 gutter-left">
-                                            <label className="control-label">Date of Joining</label>
-                                            <div >
-                                            <input type="date" ref="doj" className="form-control" id="doj" name="dat" onBlur={this.handledoj}  />
-                                            </div>
-                                        </div>*/}
-
                     <div className="form-group col-md-12 gutter-left">
                         <label className="control-label">Phone no.</label>
                             <div className="input-group">
@@ -210,17 +211,19 @@ render(){
                     </div>
                     
                     <div className="form-group policy col-md-12 gutter-left">
-                        <p>You must agree with our <Link to="/"> terms and conditions</Link></p>
+                        <p>You must agree with our <Link to="/Terms"> terms and conditions</Link></p>
                         <p>Already a user <Link to="/">Login here</Link> </p>
                     </div>
                     <div className="forsm-group col-md-12 gutter-left">
 
-                        <button type="submit"  id="sub" className="btn-block" name="submit">SIGN IN</button>
+                        <button type="submit" id="sub" className="btn-block" name="submit">SIGN IN</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <Footer/>
+</div>
     );
 }
 }

@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 export default class NumberofUsers extends Component{
  constructor(props){
     super(props);
@@ -12,7 +12,7 @@ export default class NumberofUsers extends Component{
 
  componentDidMount(){
     var self = this;
-    axios.post('http://localhost:5000/api/userDetails', {})
+    axios.post('http://localhost:5000/api/totalUsers', {})
     .then(function(response){
         let data = response.data;
         let NumberofUsers = data.length;
@@ -22,12 +22,9 @@ export default class NumberofUsers extends Component{
     })
  }
 render(){
-    console.log(this.state.totalUsers);
 let total = this.state.totalUsers;
 	return(
-		<div className="NumberofUsers">
-                    <div className="col-lg-6 col-md-6">
-                        <div className="panel panel-primary">
+	                  <div className="panel panel-primary">
                             <div className="panel-heading">
                                 <div className="row">
                                     <div className="col-xs-3">
@@ -48,10 +45,6 @@ let total = this.state.totalUsers;
                                 </div>
                             </Link>
                         </div>
-                    </div>
-                    
-                </div>
-
 		);
 }
 }

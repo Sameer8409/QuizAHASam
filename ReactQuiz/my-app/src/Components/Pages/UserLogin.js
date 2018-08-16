@@ -1,21 +1,41 @@
-import React, {Component} from 'react';
 import axios from 'axios'; 
 import {Link} from "react-router-dom";
+import React, {Component} from 'react';
 import Style from "../../css/Style.css";
+import Footer from '../../Components/Include/Footer.js';
+import FirstHeader from '../../Components/Include/FirstHeader.js';
 export default class UserLogin extends Component{
     
     constructor(props){
         super(props);
+        this.click=this.click.bind(this);
         this.state={
             email:'',
             password:''
         }
     }
-    componentDidMount(){
-        console.log("Did",this.props);
+    
+    componentWillMount(){
+        if(localStorage.mydata != "null" && localStorage.mydata === "admin@gmail.com")
+        {
+            this.props.history.push("/Dashboard")
+        }
+        else{
+            if(localStorage.mydata != "null" && localStorage.mydata != "admin@gmail.com")
+            {
+            this.props.history.push("/Play")       
+            }
+        }
+    }
+    click = (event) => { 
+        event.preventDefault();
+        this.handelemail();
+        this.handlepasswords();
+        this.handleform();
+
     }
     handelemail=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
         let email=this.refs.email.value;
         var regex= "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
         var text="Please enter a valid email id";
@@ -33,42 +53,60 @@ export default class UserLogin extends Component{
             return false;
         }
     }
-
+handlepasswords=(event)=>{
+        //event.preventDefault();
+        let password=this.refs.password.value;
+        var text=" Please enter the password";
+        if (password==="")
+        {
+            document.getElementById("passverify").innerHTML=text;  
+            return false;
+        }
+        else{
+            document.getElementById("passverify").innerHTML="";  
+            this.setState({
+                password:password
+            })
+            return false;
+        }
+    }
     handleform=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
+        let text="Invalid Email address or password";
         this.password=this.refs.password.value;
         if(this.state.email===""||this.password==="")
         {
-            alert("Both fields are required");
+            
             return false;
         }
         else
         {
-        var self = this;
+        var self = this
         axios.post('http://localhost:5000/api/userlogin', {
         email:this.state.email,
         password: this.password
         })
         .then(function (response) {
-            console.log(response);
-            if(response.data==="admin login successful")
+            if(response.data==="admin@gmail.com")
             {
-                alert("Welcome");
-                self.props.history.push('/AdminLogin',self.state.email);
+                localStorage.setItem('mydata', response.data);
+                //console.log("Cache", localStorage);
+                self.props.history.push('/AdminLogin',response.data);
             }
             else{
-        if(response.data==="login successful")
-        {
-            //let email=response.data[0].data.email;
-            //console.log(email);
-            //localStorage.setItem('mydata', email);
-            alert("Welcome");
-            self.props.history.push('/Play', self.state.email);
+        if(response.data === "unsuccessful")
+        { 
+            document.getElementById("dberror").innerHTML=text;
+            return false;
+        
         }
         else
         {
-            alert("Please Enter a valid Email id or password")
-            self.props.history.push('/');
+            localStorage.setItem('mydata', response.data);
+            //let email=response.data[0].data.email;
+            //console.log(email);
+            //localStorage.setItem('mydata', email);
+            self.props.history.push('/Play', response.data);
         }
     }
 })
@@ -81,12 +119,18 @@ export default class UserLogin extends Component{
 
 render(){
 	return(
-		<div className="UserLogin">
-        <div className="container">
+	<div className = "UserLogin">
+        <FirstHeader/>
+        <div className = "container">
             <div className = "row">
-                <div className = "col-md-3">
+                <div clissName = "col-md-12">
+                    <center><h1>Welcome to QuizAHA the Ultimate Quiz Game</h1></center>
                 </div>
-                <div className="panel panel-primary mypanel col-md-6 col-sm-9 ">
+            </div>
+            <div className = "row">
+                <div className = "col-md-3 col-sm-2 col-xs-1">
+                </div>
+                <div className="panel panel-primary mypanel col-md-6 col-sm-8 col-xs-10">
                     <div className="panel-heading heading">
                         Login to Quiz World 
                         <div className="pull-right">QuizAHA!</div>
@@ -94,7 +138,7 @@ render(){
                     <div className = "panel-body">
                         <div id = "loginmsg">
                         </div>
-                        <form method="post" name="handleform" onSubmit={this.handleform}>
+                        <form method="post" name="handleform" onSubmit={this.click}>
                             <div className="form-group">
                                 <label className="control-label">Email</label>
                                 <input type="email" ref="email" id="email" className="form-control" name="email" placeholder="Ex. example@gmail.com or example@yahoo.co.in" onBlur={this.handelemail} />
@@ -102,22 +146,31 @@ render(){
                             </div>
                             <div className="form-group">
                                 <label className="control-label">Password</label>
-                                <input type="password" ref="password" id="pas1" className="form-control" name="password" placeholder="Minimum 6 and Maximum 16 character" maxLength="16" onBlur={this.handelpassword} />
+                                <input type="password" ref="password" id="pas1" className="form-control" name="password" placeholder="Minimum 6 and Maximum 16 character" maxLength="16" onKeyUp={this.handelpassword} />
                                 <span id="passverify"></span>
                             </div>
-                            <button id="login1" type="submit" name="login1" className="btn btn-success">Login</button>
-                            <Link to="/Signup"> SIGN UP</Link>
-                            <div className="forgot password pull-right">
-                                <Link to={{ pathname: '/Forgot', state:'forgot' }}>Forgot Password?</Link>
+                            <div className="row">
+                                <div className="col-md-8 col-sm-7 col-xs-12">
+                                    <button id="login1" type="submit" name="login1" className="btn btn-success">Login</button>
+                                    <Link to="/Signup"> SIGN UP</Link>
+                                </div>
+                                    
+                                <div className="col-md-4 col-sm-5 col-xs-12">
+                                    <Link to={{ pathname: '/Forgot', state:'forgot' }}>Forgot Password?</Link>
+                                </div>
                             </div>
-                            
+                            <div>
+                                <span id="dberror"></span>
+                            </div>
                         </form>
                     </div>
                 </div>
-            <div className="col-md-3"> 
+            <div className="col-md-3 col-sm-2 col-xs-1"> 
             </div>
         </div>
+        <center><p> Wana Play <strong>Ultimate quizes</strong> <i>Login here or <Link to="/Signup">Register yourself</Link></i></p></center>
     </div>
+    <Footer/>
 </div>
     );
 }

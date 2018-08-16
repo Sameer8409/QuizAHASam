@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, {Component} from 'react'; 
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 export default class NumberofTopics extends Component{
     constructor(props){
         super(props);
@@ -16,7 +16,7 @@ export default class NumberofTopics extends Component{
             let data = response.data;
             let getQuiz = [];
             data.forEach((data)=>{
-                getQuiz.push(data.quizName[0].quizName);
+                getQuiz.push(data.quizName);
             });
             self.setState({
                 totalTopics: getQuiz
@@ -24,12 +24,10 @@ export default class NumberofTopics extends Component{
         })
     }
 render(){
-    console.log(this.state.totalTopics.length);
+    //console.log(this.state.totalTopics.length);
     let NumberofTopics = this.state.totalTopics.length;
 
 	return(
-                <div className="NumberofTopics">
-                    <div className="col-lg-6 col-md-6">
                         <div className="panel panel-primary">
                             <div className="panel-heading">
                                 <div className="row">
@@ -51,8 +49,8 @@ render(){
                                 </div>
                             </Link>
                         </div>
-                    </div>
-            </div> 
+
+            
 		);
 }
 }

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
 export default class AdminLogin extends Component{
     constructor(props){
         super(props);
@@ -7,17 +6,26 @@ export default class AdminLogin extends Component{
             abc:''
         }
     }
-    componentDidMount(){
-    	console.log("Admin",this.props.location.state);
+    componentWillMount(){
+        if(localStorage.mydata != "admin@gmail.com")
+        {
+            this.props.history.push("/");
+        }
+        else{
+            if(this.props.location.state === undefined)
+            {
+                this.props.history.push("/Dashboard");
+            }
+    	{/*console.log("Admin",this.props.location.state);*/}
     let val= this.props.location.state;
      this.setState({
     	abc:val
     })
    
      }
-    
+    }
     render(){
-    	 if(this.state.abc=='admin@gmail.com')
+    	 if(this.state.abc==='admin@gmail.com')
     	{
     	 this.props.history.push("/Dashboard", "1");
     	}
@@ -25,20 +33,22 @@ export default class AdminLogin extends Component{
     	{
     		switch(this.state.abc)
     		{
-    			case "1": this.props.history.push("/Dashboard", "1");
+    			case "1": this.props.history.replace("/Dashboard", "1");
     			break;
-    			case "2": this.props.history.push("/UserManagement", "2");
+    			case "2": this.props.history.replace("/UserManagement", "2");
     			break;
-    			case "3": this.props.history.push("/CreateQuiz", "3");
+    			case "3": this.props.history.replace("/CreateQuiz", "3");
     			break;
-    			case "4": this.props.history.push("/QuizManagement", "4");
+    			case "4": this.props.history.replace("/QuizManagement", "4");
     			break;
-    			case "5": this.props.history.push("/Play", "5");
+    			case "5": this.props.history.replace("/Play", "5");
+                break;
+                case "6": this.props.history.replace("/UpdateQuiz", "6");
     			 
     		}
     	}
     	return(<div>
-    		Hello
+    		 
     		</div>
     		);
     }

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from "react-router-dom"; 
 import Style from "../../css/Style.css";
-export default class Header extends Component{
+export default class FirstHeader extends Component{
 render(){
 	return(
     <div id="wrapper">
@@ -14,13 +14,12 @@ render(){
                 <div className="col-md-6 col-sm-9 col-xs-10">
                     <nav>
                         <ul>
-                            <li><Link to="/Dashboard">Home</Link></li>
-                            <li><Link to="/Aboutus">Upcomming</Link></li>
-                            <li><Link to="/Game">Games</Link></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/Aboutus">About us</Link></li>
                             <li><Link to="/Help">Help</Link></li>
                             <li><Link to="/contactus">Contact us</Link></li>
-                            <li><Link className="btn btn-success" to="/Logout">
-                                <i className="fa fa-user fa-fw"></i> Logout <b className="fa fa-sign-out"></b>
+                            <li><Link className="btn btn-success" to="/Dashboard">
+                                <i className="fa fa-user fa-fw"></i> Back to home <b className="fa fa-sign-in"></b>
                               </Link>                        
                             </li>
                         </ul>
@@ -33,4 +32,4 @@ render(){
             </div>
     );
 }
-}
+}FirstHeader.js

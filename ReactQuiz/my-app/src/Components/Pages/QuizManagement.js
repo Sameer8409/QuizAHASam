@@ -1,27 +1,58 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Header from '../../Components/Include/Header.js';
 import LeftBar from './LeftBar';
+import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import Header from '../../Components/Include/Header.js';
 export default class QuizManagement extends Component{
 constructor(props){
         super(props);
         this.state = { 
             Quizes: [],
-            quizName:''
+            quizName:[],
+            email:''
+
         }
     }
-    handlequiz = (event) => {
-        
-        this.quizName = event.target.id;
+    
+    handleEditQuiz = (event) => {
+        event.preventDefault();
+        let x = [];
+        x[0]=event.target.id;
+        x[1]= this.state.email;
+        console.log("Id",event.target.id);
+        console.log("Value", this.state.email)
+        this.props.history.push('/UpdateQuiz', x);
+         }
+    quizDelete = (event) => {
+    event.preventDefault();
+    this.quizName=event.target.id;
+    console.log(this.quizName);
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to delete this Quiz permanently.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.handleDeleteQuiz()
+        },
+        {
+          label: 'No',
+          onClick: () => ""
+        }
+      ]
+    })
+  };
+    handleDeleteQuiz = (event) => {
         var self = this;
         axios.post('http://localhost:5000/api/deleteQuiz', {quizName:this.quizName})
         .then(function(response){
-            console.log(response.data);
-            if(response.data=="Done")
+            console.log(response.data)
+            if(response.data !== undefined)
             {
-                alert("Quiz Removed Successfully!");
-                self.props.history.push('/QuizManagement');
+                self.props.history.push('/Dashboard', "1");
+                self.props.history.push('/QuizManagement', "4");
             }
 
         else{
@@ -33,24 +64,30 @@ constructor(props){
   
     }
 
-    componentDidMount(){
-        if(this.props.location.state == undefined)
+    componentWillMount(){
+        let e=this.props.location.state;
+        if(localStorage.mydata != "admin@gmail.com")
        {
-        this.props.history.push("/")
+        this.props.history.location("/");
+        //window.location="/";
        }
+       else{
+       this.setState({
+            email:e
+        })
         var self = this;
         axios.post('http://localhost:5000/api/getQuiz', {})
         .then(function(response){
             let data = response.data;
             let getQuiz = [];
             data.forEach((data)=>{
-                getQuiz.push(data.quizName[0].quizName);
+                getQuiz.push(data.quizName);
             });
             self.setState({
                 Quizes: getQuiz
             });
         })
-    }
+    }}
 render(){
   
     let quizes = this.state.Quizes.map((data, index) => {
@@ -59,13 +96,18 @@ render(){
     let quizId = this.state.Quizes.map((data, index) => {
         return (<li> {index+1} </li> );
     });
+    let deleteQuiz = this.state.Quizes.map((data, index) => {
+        return (<li> <Link id={data} onClick={this.quizDelete} name="delete" to="quizManagement"> {"Delete"} </Link> </li> );
+    });
     let editQuiz = this.state.Quizes.map((data, index) => {
-        return (<li> <Link id={data} onClick={this.handlequiz} name="edit" to="quizManagement"> {"Delete"} </Link> </li> );
+        return (<li> <Link id={index} onClick={this.handleEditQuiz} name="edit" to={{ pathname: '/AdminLogin', state:'6' }}> {"Edit"} </Link> </li> );
     });
 
+
 	return(
+        <div className="quizManagement">
+            <Header/>
             <div className="container-fluid">
-                <Header/>
                 <div className="row">
                     <div className="col-md-3">
                         <LeftBar/>
@@ -74,16 +116,12 @@ render(){
                         <div className="row">
                             <div className="colName-md-12">
                                 <h1 className="page">Quiz Management</h1>
+                                <hr/>
                             </div>
                         </div>                  
                         <div className="panel panel-default">
                             <div className="panel-heading">
                                 <i className="fa fa-bar-chart-o fa-fw"></i> Quizzes
-                                {/*<div className="pull-right">
-                                                                    <div className="btn-group">
-                                                                        <button>Delete</button>
-                                                                    </div>
-                                                                </div>*/}
                                 <div className="panel-body">
                                     <div className="row">
                                         <div className="col-md-12">
@@ -92,11 +130,11 @@ render(){
                                             <thead>
                                                 <tr>
                                                     <th>      </th>
-                                                    <th>Quiz Id</th>
+                                                    <th>S No.</th>
                                                     <th>Quiz Name</th>
                                                     {/*<th>Topic</th>*/}
-                                                    {/*<th>Last modified on</th>*/}
-                                                    {/*<th>Action</th>*/}
+                                                    {<th>Modify/Update</th>}
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -105,8 +143,8 @@ render(){
                                                     <td>{quizId}</td>
                                                     <td>{quizes}</td>
                                                     {/*<td>jbgfishj@gmail.com</td>*/}
-                                                    {/*<td>684561654</td>*/}
-                                                    {/*<td>  {editQuiz}   </td>*/}
+                                                    <td> {editQuiz} </td>
+                                                    <td>  {deleteQuiz}   </td>
                                                 </tr>
                                                                                                 
                                             </tbody>
@@ -124,6 +162,7 @@ render(){
                     </div>
                 </div>
             </div>
+        </div>
         );
 	}
 }

@@ -1,30 +1,30 @@
-import React, {Component} from 'react'; 
 import axios from 'axios';
+import ReactDOM from "react-dom";
 import LeftBar from './LeftBar.js';
-import {Link} from 'react-router-dom';
-import Header from '../../Components/Include/Header.js';
+import React, {Component} from 'react'; 
+import Pagination from "react-js-pagination";
 import NumberofUsers from './NumberofUsers.js';
 import NumberofTopics from './NumberofTopics.js';
+import Header from '../../Components/Include/Header.js';
 export default class Dashboard extends Component{
      constructor(props){
         super(props);
         this.state={
+            names: [],
+            emails: [],
+            mobiles: [],
+            activePage:'',
+            totalPages:'',
             userDetails:[],
-                names: [],
-                mobiles: [],
-                emails: [],
-                datesofJoining: [],
-                email:''
+            datesofJoining: []
         }
     }
-    componentWillMount(){
-        if(this.props.location.state == undefined)
-       {
-        this.props.history.push("/")
-       }
-        var self = this;
-        axios.post('http://localhost:5000/api/userDetails', {})
-        .then(function(response){
+    handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    let activePage=pageNumber;
+    var self = this;
+        axios.post('http://localhost:5000/api/userDetails', {activePage:pageNumber})
+        .then(response=>{
             let data = response.data;
             let name = [];
             let email = [];
@@ -43,23 +43,70 @@ export default class Dashboard extends Component{
             data.forEach((DOJ) => {
                 doj.push(DOJ.doj)
             });
-
             self.setState({
+                activePage:pageNumber,
                 names: name,
                 emails: email,
                 mobiles: mobile,
                 datesofJoining: doj
 
            
-            },()=>{
-                //console.log("userDetails",self.state.userDetails[0].name)
+            },(err, data)=>{
+                {console.log(err)}
             });
+            console.log(name);
         })
-
     }
+    componentWillMount(){
+        if(localStorage.mydata != "admin@gmail.com")
+           {
+                this.props.history.push("/");
+           }
+            var self = this;
+            axios.post('http://localhost:5000/api/totalUsers', {})
+            .then(response=>{
+                let totalRecords=response.data.length;
+                this.setState({
+                    totalPages:totalRecords/5
+                })
+            });
+            axios.post('http://localhost:5000/api/userDetails', {activePage:1})
+            .then(function(response){
+                let data = response.data;
+                let name = [];
+                let email = [];
+                let mobile = [];
+                let doj= [];
+                data.forEach((Name) => {
+                    name.push(Name.name)
+                });
+                data.forEach((Email) => {
+                    email.push(Email.email)
+                });
+                data.forEach((Mobile) => {
+                    mobile.push(Mobile.mobile)
+                });
+                data.forEach((DOJ) => {
+                    doj.push(DOJ.doj)
+                });
+
+                self.setState({
+                    names: name,
+                    emails: email,
+                    mobiles: mobile,
+                    datesofJoining: doj,
+                    activePage:1
+                },()=>{
+                    {/*console.log("userDetails",self.state.userDetails[0].name)*/}
+                });
+            })
+
+        }
+    
 render(){
+    let a=(this.state.activePage);
     let index = this.state.names.map((Name, Index) => {
-        return (<li>{Index+1}</li> );
+        return (<li>{((a-1)*5)+Index+1}</li> );
     });
     let name = this.state.names.map((Name, index) => {
         return (<li>{Name}</li> );
@@ -72,16 +119,20 @@ render(){
     });
 
     return(			
-		<div className="container-fluid">
-            <div className="row">
-                <div className="col-md-12">
-                    <Header/>
+            <div className="Dashboard">
+                <Header/>
+        		<div className="container-fluid">
                     <div className="row">
                         <div className="col-md-3">
                             <LeftBar/>
-
                         </div>
                         <div className="col-md-9">
+                            <div className="row">
+                                <div className="col-md-12 col-sm-12 col-sm-12">
+                                    <h1>Dashboard</h1>
+                                    <hr/>
+                                </div>
+                            </div>
 			                <center>
                                 <div className="row">
                                     <div className="col-md-6">
@@ -117,6 +168,15 @@ render(){
                                                 </tr>
                                                 </tbody>
                                                 </table>
+                                                 <div>
+                                                         <Pagination
+                                                           activePage={this.state.activePage}
+                                                           itemsCountPerPage={1}
+                                                           totalItemsCount={this.state.totalPages}
+                                                           pageRangeDisplayed={5}
+                                                           onChange={this.handlePageChange.bind(this)}
+                                                         />
+                                                       </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,7 +188,6 @@ render(){
 		            </div>
                 </div>
             </div>
-        </div>
-	);
-}
+        );
+    }
 }  

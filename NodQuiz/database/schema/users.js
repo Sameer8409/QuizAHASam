@@ -9,8 +9,8 @@ let userSchema = new Schema({
     mobile: Number,
     email: String,
     password: String,
-    doj:Date,
-    total_score:Number,
+    doj:String,
+    total_score:Number
     
 });
 

@@ -1,6 +1,8 @@
-import React, {Component} from 'react';
 import axios from 'axios'; 
 import {Link} from "react-router-dom";
+import React, {Component} from 'react';
+import Footer from '../../Components/Include/Footer.js';
+import FirstHeader from '../../Components/Include/FirstHeader.js';
 export default class Reset extends Component{
 	constructor(props){
 		super(props);
@@ -11,17 +13,22 @@ export default class Reset extends Component{
 		}
 	}
     componentDidMount(){
-        if(this.props.location.state==undefined)
+        if(this.props.location.state === undefined)
         {
             this.props.history.push("/");
         }
         let email='';
-        this.setState({
-            email:this.props.location.state
-        })
+                this.setState({
+                    email:this.props.location.state
+                })
+    }
+    click = (event) => { 
+        event.preventDefault();
+        this.handlePassword();
+        this.handleConfirm_password();
+        this.handleform();
     }
 	handlePassword = (event)=>{
-        event.preventDefault();
         let password=this.refs.password.value;
         var regex= /^(?=.*[0-9])(?=.{6,})(?=.*[!@#$%^&*])/;
         var text=" use 6 to 16 character with at least one number and one special character(!@#$%^&*)";
@@ -39,7 +46,6 @@ export default class Reset extends Component{
         }
     }
     handleConfirm_password=(event)=>{
-        event.preventDefault();
         let confirm_password=this.refs.confirm_password.value;
         var pas=document.getElementById("password").value;
         var text="Please enter the same password";
@@ -58,13 +64,9 @@ export default class Reset extends Component{
     }
     
     
-	handleForm = (event) =>{
-        event.preventDefault();
-		// this.password = this.refs.password.value;
-  //       this.confirm_password = this.refs.confirm_password.value;
-		if(this.state.password==""||this.state.confirm_password=="")
+	handleform = (event) =>{
+        if(this.state.password === ""||this.state.confirm_password === "")
 		{
-			alert("Enter your New password");
 			return false;
 		}
 		var self = this;
@@ -74,8 +76,7 @@ export default class Reset extends Component{
 		})
 		.then(function(response){
 			console.log(response);
-            alert("Password updated!");
-			alert("Please login with your new password");
+            alert("Password updated! now you can login with new password");
                 self.props.history.push("/");
 
 		})
@@ -83,12 +84,18 @@ export default class Reset extends Component{
 	render(){
         console.log(this.state.email);
 		return(
-			<div className="UserLogin">
+	<div className="UserLogin">
+        <FirstHeader/>
         <div className="container">
-            <div className = "row">
-                <div className = "col-md-3">
+            <div className="row">
+                <div clissName="col-md-12">
+                <center><h1>Reset/Update Password   STEP 2 of 2</h1><h2>Please Enter a New Password</h2></center>
                 </div>
-                <div className="panel panel-primary mypanel col-md-6 col-sm-9 ">
+            </div>
+            <div className = "row">
+                <div className = "col-md-3 col-sm-2 col-xs-1">
+                </div>
+                <div className="panel panel-primary mypanel col-md-6 col-sm-8 col-xs-10">
                     <div className="panel-heading heading">
                         Set New Password
                         <div className="pull-right">QuizAHA!</div>
@@ -96,7 +103,7 @@ export default class Reset extends Component{
                     <div className = "panel-body">
                         <div id = "loginmsg">
                         </div>
-                        <form method="post" name="handleform" onSubmit={this.handleForm}>
+                        <form method="post" name="handleform" onSubmit={this.click}>
                             <div className="form-group">
                                 <label className="control-label">New Password</label>
                                 <input type="password" ref="password" id="password" className="form-control" name="password" placeholder="Minimum 6 and Maximum 16 character" maxLength="16" onBlur={this.handlePassword} />
@@ -109,17 +116,24 @@ export default class Reset extends Component{
                             <span id="confirm_password"></span>
                         </div>
                     	</div>
-                         <button id="update" type="submit" name="update" className="btn btn-success">Update Password</button>
-                         <div className="forgot password pull-right">
-                                <Link to="/"> Back to Login</Link>
+                        <div className="row">
+                                <div className="col-md-8 col-sm-7 col-xs-12">
+                                    <button id="update" type="submit" name="update" className="btn btn-success">Update Password</button>
+                                </div>
+                                    
+                                <div className="col-md-4 col-sm-5 col-xs-12">
+                                    <Link to="/"> Back to Login</Link>
+                                </div>
                             </div>
                         </form>
                     </div>
-                </div>
-            <div className="col-md-3"> 
+            <div className="col-md-3 col-sm-2 col-xs-1"> 
             </div>
         </div>
+        </div>
+        <center><p> Wana Play <strong>Ultimate quizes</strong> <i>Login here or <Link to="/Signup">Register yourself</Link></i></p></center>
     </div>
+    <Footer/>
 </div>
 
 			)

@@ -1,8 +1,9 @@
-import React, {Component} from 'react'; 
 import axios from 'axios';
-import Style from "../../css/Style.css";
-import Header from '../../Components/Include/Header.js';
 import LeftBar from './LeftBar'; 
+import React, {Component} from 'react'; 
+import { confirmAlert } from 'react-confirm-alert';
+import Header from '../../Components/Include/Header.js';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 export default class CreateQuiz extends Component{
     constructor(props){
         super(props);
@@ -37,8 +38,8 @@ export default class CreateQuiz extends Component{
             ans53:''
         }
     }
-    componentDidMount(){
-        if(this.props.location.state == undefined)
+    componentWillMount(){
+        if(localStorage.mydata != "admin@gmail.com")
        {
         this.props.history.push("/")
        }
@@ -47,7 +48,11 @@ export default class CreateQuiz extends Component{
 
     
     handleform=(event)=>{
-        event.preventDefault();
+        //event.preventDefault();
+        if(this.state.quizName==="")
+        {
+            return false;
+        }
         this.quizName=this.refs.quizName.value;
         this.question1=this.refs.question1.value;
         this.question2=this.refs.question2.value;
@@ -114,14 +119,14 @@ export default class CreateQuiz extends Component{
             ans63:this.ans63
         })
         .then(function (response) {
+            let text="This quiz is already exists";
             if(response.data==="already exists")
             {
-                alert("This quiz is already exists");
-                self.props.history.push('/CreateQuiz', "3");
+                document.getElementById("quiznameverify").innerHTML=text;
+                return false;
             }
             else{
-            alert("Quiz created");
-            self.props.history.push('/Dashboard', "1");
+            self.props.history.push('/QuizManagement', "4");
         }
         })
         .catch(function(err){
@@ -129,20 +134,83 @@ export default class CreateQuiz extends Component{
         });
         
     }
+    handlename=(event)=>{
+        //event.preventDefault();
+        let name = this.refs.quizName.value;
+        // this.name=this.refs.name.value;
+        var regex= /^[a-zA-Z ]{2,30}$/;
+        var text="*Quiz name should start with an alphabet and must have atlest two character";
+        if(!(name.match(regex))){
+            document.getElementById("quiznameverify").innerHTML=text;
+            return false;
+        }
+        else{
+            document.getElementById("quiznameverify").innerHTML="";
+            this.setState({
+                quizName:name
+            })
+            return false;
+        }
+        
+    }
+    click=(event)=>{
+        event.preventDefault();
+        this.handlename();
+        if(this.state.quizName)
+        this.submit();
+    }
+    submit = (event) => {
+    this.handlename();
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to submit this form to create Quiz.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.handleform()
+        },
+        {
+          label: 'No',
+          onClick: () => ""
+        }
+      ]
+    })
+  };
+  reset = (event) => {
+    event.preventDefault();
+    this.handlename();
+    confirmAlert({
+      title: 'Confirm to reset',
+      message: 'Are you sure to do this? All changes will be reset. ',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.props.history.push("/AdminLogin", "3")
+        },
+        {
+          label: 'No',
+          onClick: () => ""
+        }
+      ]
+    })
+  };
 
 render(){
 	return(
-            <div className="container-fluid">
+            <div className="createQuiz">
                 <Header/>
                 <div className="row">
+                <div className="createQuiz">
                     <div className="col-md-3">
                         <LeftBar/>
                     </div>
                     <div className="col-md-9">
-                        <form method="post" onSubmit = {this.handleform}>
+                        <form method="post" onSubmit = {this.click}>
                             <div className="form-group">
+                            <h1>Create Quiz </h1>
+                            <hr/>
                                 <label>Quiz Name</label>
-                                <input className="form-control" type="text" ref="quizName" name="Quizname" />
+                                <input className="form-control" type="text" ref="quizName" name="Quizname" onBlur={this.handlename} />
                                 <p className="help-block">Example Movies</p>
                             </div>
                             <div className="row">
@@ -289,14 +357,14 @@ render(){
                                     <input className="form-control" type="text" ref="ans63" name="ans3"/>
                                 </div>
                             </div>
-                       
+                            <span id="quiznameverify"></span>
                             <div className="submit-game">
                                 <div className="row">
                                     <div className="col-md-6">
                                         <button type="submit" className="btn btn-primary btn-lg btn-block" >Submit</button>
                                     </div>
                                     <div className="col-md-6">
-                                        <button type="reset" className="btn btn-primary btn-lg btn-block"> Reset </button>
+                                        <button type="button" onClick={this.reset} className="btn btn-primary btn-lg btn-block"> Reset </button>
                                     </div>
                                 </div>
                             </div>
@@ -304,6 +372,7 @@ render(){
                 </div>
             </div>
         </div>
+    </div>
         );
 	}
 }

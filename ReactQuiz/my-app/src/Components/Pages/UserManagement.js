@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import Header from '../../Components/Include/Header.js';
-import LeftBar from './LeftBar';
-import { Row, Col } from 'reactstrap';
 import axios from 'axios';
+import LeftBar from './LeftBar';
 import {Link} from 'react-router-dom';
+import { Row, Col } from 'reactstrap';
+import React, {Component} from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import Header from '../../Components/Include/Header.js';
 export default class UserManagement extends Component{
     constructor(props){
             super(props);
@@ -18,35 +19,49 @@ export default class UserManagement extends Component{
             }
             
 
-            handleUser = (event) => {
-                this.email=event.target.id;
-                var self = this;
+    handleUser = (event) => {
+        //this.email=event.target.id;
+        var self = this;
         axios.post('http://localhost:5000/api/delete', {email:this.email})
         .then(function(response){
-            if(response.data=="Done")
-            {
-                alert("User Removed Successfully!");
+            if(response.data==="Done")
+                {
                 self.props.history.push('/Dashboard', "1");
                 self.props.history.push('/UserManagement', "2");
+            }else
+            {
+                alert("User Can not not be delete!")
             }
-
-        else{
-            alert("User Can not not be delete!")
-        }
-                console.log(response.data);
-               
-
-            })
+        })
     }
 
+    userDelete = (event) => {
+        event.preventDefault();
+        this.email=event.target.id;
+        console.log(this.email);
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to delete this Quiz permanently.',
+            buttons: [
+            {
+              label: 'Yes',
+              onClick: () => this.handleUser()
+            },
+            {
+              label: 'No',
+              onClick: () => ""
+            }
+          ]
+        })
+  };
 
     componentWillMount(){
-        if(this.props.location.state == undefined)
+        if(localStorage.mydata != "admin@gmail.com")
        {
-        this.props.history.push("/")
+        window.location="/";
        }
         var self = this;
-        axios.post('http://localhost:5000/api/userDetails', {})
+        axios.post('http://localhost:5000/api/totalUsers', {})
         .then(function(response){
             let data = response.data;
             let name = [];
@@ -92,7 +107,7 @@ render(){
         return (<li> {Email}</li> );
     });
     let edit = this.state.emails.map((Email, index11) => {
-        return (<li> <Link id={Email} onClick={this.handleUser} name="edit" to="UserManagement"> {"Delete"} </Link> </li> );
+        return (<li> <Link id={Email} onClick={this.userDelete} name="edit" to="UserManagement"> {"Delete"} </Link> </li> );
     });
     let mobile = this.state.mobiles.map((Mobile, index2) => {
         return (<li> {Mobile}</li> );
@@ -103,9 +118,9 @@ render(){
     });
 
     return(
-        <div className="container-fluid">
+        <div className="userManagement">
             <Header/>
-            <div id="page-wrapper">
+            <div className="container-fluid">
     <Row>
     <Col md={3}>
     <LeftBar/>
@@ -113,18 +128,14 @@ render(){
     <Col md={9}>
         <Row>
         <Col md={12}>
-            <h1 className="page-header">User Management</h1>
+            <h1 className="userManagement">User Management</h1>
+            <hr/>
         </Col>
     </Row>
         <div className="panel panel-default">
             <div className="panel-heading">
             	<i className="fa fa-bar-chart-o fa-fw"></i> Users
-                {/*<div className="pull-right">
-                                     <div className="btn-group">
-                                        <button onClick={this.handleUsers}>Delete All</button>
-                                    </div>
-                                </div>
-                                */}<div className="panel-body">
+                <div className="panel-body">
               		<Row>
                     	<Col md={12}>
                     		<div className="table-responsive">
@@ -132,7 +143,7 @@ render(){
                             	<thead>
                                 <tr>
                                     <th>      </th>
-                                    <th>Player Id</th>
+                                    <th>S No.</th>
                                     <th>Player Name</th>
                                     <th>Email id</th>
                                     <th>Contact no.</th>
@@ -165,9 +176,9 @@ render(){
     			</div>
  			</div>
  		</div>
-        </Col>
-        </Row>
-    </div>   
+    </Col>
+</Row>
+</div>   
 </div>
 
     );

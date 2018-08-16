@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
 import axios from 'axios'; 
 import {Link} from "react-router-dom";
+import React, {Component} from 'react';
+import Footer from '../../Components/Include/Footer.js';
+import FirstHeader from '../../Components/Include/FirstHeader.js';
 export default class Forgot extends Component{
 	constructor(props){
 		super(props);
+        this.click=this.click.bind(this);
 		this.state = {
 			email:'',
 			password:'',
@@ -11,11 +14,16 @@ export default class Forgot extends Component{
 		}
 	}
     componentDidMount(){
-        if(this.props.location.state==undefined)
+        if(this.props.location.state === undefined)
             this.props.history.push("/");
     }
-        handleemail=(event)=>{
+    click = (event) => { 
         event.preventDefault();
+        this.handleemail();
+        this.handlemobile();
+        this.handleform();
+    }
+        handleemail=(event)=>{
         let email=this.refs.email.value;
         var regex= "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
         var text="Email Address must have '@' and '.'"
@@ -33,7 +41,6 @@ export default class Forgot extends Component{
         }
     }
 	handlemobile=(event)=>{
-        event.preventDefault();
         let mobile=this.refs.mobile.value;
         var regex="^([7-9]{1})([0-9]{9})$";
         var text="Mobile number must have 10 digit and should start with 7,8 or 9.";
@@ -52,15 +59,20 @@ export default class Forgot extends Component{
     }
     
 
-	handleForm = (event) =>{
-        event.preventDefault();
-  //       this.email=this.refs.email.value;
-		// this.mobile = this.refs.mobile.value;
-		if(this.state.mobile==""||this.state.email=="")
+	handleform = (event) =>{
+        let text="Admin is not allowed to reset the password please contact to your service provider.";
+        let text2="Invalid Email addredd or Mobile number";
+        if(this.state.email==="admin@gmail.com")
 		{
-			alert("Enter your email and registered mobile number.");
+			document.getElementById("emailverify").innerHTML=text;
 			return false;
 		}
+        else{
+            if(this.state.mobile===""||this.state.email==="")
+            {
+                return false;
+            }
+        }
 		var self = this;
 		axios.post('http://localhost:5000/api/forgot',{
 			email:this.state.email,
@@ -68,14 +80,13 @@ export default class Forgot extends Component{
 		})
 		.then(function(response){
 			console.log(response);
-			if(response.data=="yes")
+			if(response.data === "yes")
 			{
-				alert("Enter New password");
                 self.props.history.push('/Reset', self.state.email);
 			}
 			else
 			{
-				alert("Invalid Email or Mobile Please Try Again");
+				document.getElementById("dberror").innerHTML=text2;
                 return false;
 				}
 		})
@@ -83,11 +94,17 @@ export default class Forgot extends Component{
 	render(){
 		return(
 			<div className="UserLogin">
+            <FirstHeader/>
         <div className="container">
-            <div className = "row">
-                <div className = "col-md-3">
+            <div className="row">
+                <div clissName="col-md-12">
+                <center><h1>Reset/Update Password   STEP 1 of 2</h1><h2>please enter your email address and registered Mobile Number</h2></center>
                 </div>
-                <div className="panel panel-primary mypanel col-md-6 col-sm-9 ">
+            </div>
+            <div className = "row">
+                <div className = "col-md-3 col-sm-2 col-xs-1">
+                </div>
+                <div className="panel panel-primary mypanel col-md-6 col-sm-8 col-xs-10 ">
                     <div className="panel-heading heading">
                         Forgot Password
                         <div className="pull-right">QuizAHA!</div>
@@ -95,7 +112,7 @@ export default class Forgot extends Component{
                     <div className = "panel-body">
                         <div id = "loginmsg">
                         </div>
-                        <form method="post" name="handleForm" onSubmit={this.handleForm}>
+                        <form method="post" name="handleForm" onSubmit={this.click}>
                             <div className="form-group">
                                 <label className="control-label">Email</label>
                                 <input type="email" ref="email" id="email" className="form-control" name="email" placeholder="Ex. example@gmail.com or example@yahoo.co.in" onBlur={this.handleemail} />
@@ -106,17 +123,27 @@ export default class Forgot extends Component{
                                 <input type="tel" ref="mobile" id="mobile" maxLength="10" className="form-control" name="mobile" placeholder="Ex: 987XXXX321" onBlur={this.handlemobile} />
                                 <span id="mobileverify"></span>
                             </div>
-                            <button id="update" type="submit" name="update" className="btn btn-success">Verify mobile number</button>
-                            <div className="forgot password pull-right">
-                                <Link to="/"> Back to Login</Link>
+                            <div className="row">
+                                <div className="col-md-8 col-sm-7 col-xs-12">
+                                    <button id="update" type="submit" name="update" className="btn btn-success">Verify mobile number</button>
+                                </div>
+                                    
+                                <div className="col-md-4 col-sm-5 col-xs-12">
+                                    <Link to="/"> Back to Login</Link>
+                                </div>
                             </div>
+                            <div>
+                             <span id="dberror"></span>
+                             </div>
                         </form>
                     </div>
                 </div>
-            <div className="col-md-3"> 
+            <div className="col-md-3 col-sm-2 col-xs-1"> 
             </div>
         </div>
+        <center><p> Wana Play <strong>Ultimate quizes </strong> <i>Login here or <Link to="/Signup">Register yourself</Link></i></p></center>
     </div>
+    <Footer/>
 </div>
 
 			);
