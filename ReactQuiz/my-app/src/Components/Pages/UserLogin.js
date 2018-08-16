@@ -82,7 +82,7 @@ handlepasswords=(event)=>{
         else
         {
         var self = this
-        axios.post('http://sameer-intern.hestalabs.com/userlogin', {
+        axios.post('http://sameer-intern.hestalabs.com/api/userlogin', {
         email:this.state.email,
         password: this.password
         })
@@ -103,9 +103,6 @@ handlepasswords=(event)=>{
         else
         {
             localStorage.setItem('mydata', response.data);
-            //let email=response.data[0].data.email;
-            //console.log(email);
-            //localStorage.setItem('mydata', email);
             self.props.history.push('/Play', response.data);
         }
     }
