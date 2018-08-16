@@ -77,7 +77,7 @@ export default class UpdateQuiz extends Component{
                 }
                 
                 var self=this;
-                axios.post('http://sameer-intern.hestalabs.com/api/getQuiz',{})
+                axios.post('http://sameer-intern.hestalabs.com:5000/api/getQuiz',{})
                     .then(function(response){
                         let data = response.data;
                         
@@ -177,7 +177,7 @@ handleform = (event) => {
         this.ans62=this.refs.ans62.value;
         this.ans63=this.refs.ans63.value;
     var self = this;
-        axios.post('http://sameer-intern.hestalabs.com/api/UpdateQuiz', {
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/UpdateQuiz', {
             quizName:this.quizName,
             question1:this.question1,
             correctAns1:this.correctAns1,

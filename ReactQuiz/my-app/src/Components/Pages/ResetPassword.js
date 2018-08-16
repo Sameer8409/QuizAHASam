@@ -70,7 +70,7 @@ export default class Reset extends Component{
 			return false;
 		}
 		var self = this;
-		axios.post('http://sameer-intern.hestalabs.com/api/reset',{
+		axios.post('http://sameer-intern.hestalabs.com:5000/api/reset',{
 			email:this.state.email,
             password:this.state.password
 		})

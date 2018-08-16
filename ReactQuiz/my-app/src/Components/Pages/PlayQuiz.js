@@ -111,7 +111,7 @@ submit = (event) => {
         }
         
         var self=this;
-        axios.post('http://sameer-intern.hestalabs.com/api/getQuiz',{})
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/getQuiz',{})
             .then(function(response){
                 let data = response.data;
                 let getQuiz = [];
@@ -170,7 +170,7 @@ submit = (event) => {
         gameDetails[2]=count;
         this.total_score=gameDetails[2]
         var self = this;
-        axios.post('http://sameer-intern.hestalabs.com/api/userRecord', {
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/userRecord', {
             email:localStorage.mydata,
             quizName: this.state.quizName[self.state.q_no],
             total_score:this.total_score

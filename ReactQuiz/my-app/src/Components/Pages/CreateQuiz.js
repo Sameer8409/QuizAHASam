@@ -85,7 +85,7 @@ export default class CreateQuiz extends Component{
         this.ans62=this.refs.ans62.value;
         this.ans63=this.refs.ans63.value;
         var self = this;
-        axios.post('http://sameer-intern.hestalabs.com/api/createQuiz', {
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/createQuiz', {
             quizName:this.quizName,
             question1:this.question1,
             question2:this.question2,
