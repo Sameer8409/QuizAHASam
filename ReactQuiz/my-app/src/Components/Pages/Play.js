@@ -19,7 +19,7 @@ export default class Play extends Component{
             this.props.history.push("/")
         }
         var self = this
-        axios.post('http://localhost:5000/api/showRecords', {
+        axios.post('http://sameer-intern.hestalabs.com/api/showRecords', {
         email:localStorage.mydata
         })
         .then(function (response) {

@@ -74,7 +74,7 @@ export default class Forgot extends Component{
             }
         }
 		var self = this;
-		axios.post('http://localhost:5000/api/forgot',{
+		axios.post('http://sameer-intern.hestalabs.com/api/forgot',{
 			email:this.state.email,
 			mobile:this.state.mobile
 		})

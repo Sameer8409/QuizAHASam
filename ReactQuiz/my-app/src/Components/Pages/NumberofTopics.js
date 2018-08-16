@@ -11,7 +11,7 @@ export default class NumberofTopics extends Component{
 
     componentDidMount(){
         var self = this;
-        axios.post('http://localhost:5000/api/getQuiz', {})
+        axios.post('http://sameer-intern.hestalabs.com/api/getQuiz', {})
         .then(function(response){
             let data = response.data;
             let getQuiz = [];

@@ -12,7 +12,7 @@ export default class NumberofUsers extends Component{
 
  componentDidMount(){
     var self = this;
-    axios.post('http://localhost:5000/api/totalUsers', {})
+    axios.post('http://sameer-intern.hestalabs.com/api/totalUsers', {})
     .then(function(response){
         let data = response.data;
         let NumberofUsers = data.length;

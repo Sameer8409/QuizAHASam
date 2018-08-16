@@ -22,7 +22,7 @@ export default class UserManagement extends Component{
     handleUser = (event) => {
         //this.email=event.target.id;
         var self = this;
-        axios.post('http://localhost:5000/api/delete', {email:this.email})
+        axios.post('http://http://sameer-intern.hestalabs.com/api/delete', {email:this.email})
         .then(function(response){
             if(response.data==="Done")
                 {
@@ -61,7 +61,7 @@ export default class UserManagement extends Component{
         window.location="/";
        }
         var self = this;
-        axios.post('http://localhost:5000/api/totalUsers', {})
+        axios.post('http://sameer-intern.hestalabs.com/api/totalUsers', {})
         .then(function(response){
             let data = response.data;
             let name = [];

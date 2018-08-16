@@ -130,7 +130,7 @@ click = (event) => {
 
         }
         var self = this;
-        axios.post('http://localhost:5000/api/signup', {
+        axios.post('http://sameer-intern.hestalabs.com/api/signup', {
             name:this.state.name,
             email:this.state.email,
             password: this.state.password,
