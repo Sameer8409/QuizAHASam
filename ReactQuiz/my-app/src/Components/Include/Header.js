@@ -8,7 +8,7 @@ render(){
         <header>
         <div className="container">
             <div className="row">
-                <div className="col-md-6 col-sm-3 col-xs-2">
+                <div className="col-md-6 col-lg-6 col-sm-3 col-xs-2">
                     <h2> QuizAHA</h2> 
                 </div>
                 <div className="col-md-6 col-sm-9 col-xs-10">
