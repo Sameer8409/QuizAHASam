@@ -124,8 +124,12 @@ render(){
         <FirstHeader/>
         <div className = "container">
             <div className = "row">
-                <div clissName = "col-md-12">
+            <div className = "col-md-3 col-sm-2 col-xs-1">
+                </div>
+                <div clissName = "col-md-6 col-sm-8 col-xs-10 ">
                     <center><h1>Welcome to QuizAHA the Ultimate Quiz Game</h1></center>
+                </div>
+                <div className = "col-md-3 col-sm-2 col-xs-1">
                 </div>
             </div>
             <div className = "row">
