@@ -16,12 +16,13 @@ export default class UserLogin extends Component{
     }
     
     componentWillMount(){
-        if(localStorage.mydata != "null" && localStorage.mydata === "admin@gmail.com")
+            console.log("local", localStorage)
+        if(localStorage.mydata != "null" && localStorage.mydata === "admin@gmail.com" && localStorage.mydata != undefined )
         {
             this.props.history.push("/Dashboard")
         }
         else{
-            if(localStorage.mydata != "null" && localStorage.mydata != "admin@gmail.com")
+            if(localStorage.mydata != "null" && localStorage.mydata != "admin@gmail.com" && localStorage.mydata != undefined)
             {
             this.props.history.push("/Play")       
             }
@@ -103,6 +104,9 @@ handlepasswords=(event)=>{
         else
         {
             localStorage.setItem('mydata', response.data);
+            //let email=response.data[0].data.email;
+            //console.log(email);
+            //localStorage.setItem('mydata', email);
             self.props.history.push('/Play', response.data);
         }
     }

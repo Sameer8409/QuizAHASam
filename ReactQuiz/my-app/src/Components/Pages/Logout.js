@@ -15,7 +15,7 @@ export default class Logout extends Component{
         }
         else
         {
-        localStorage.mydata = null, 
+        localStorage.mydata = "null", 
         this.props.history.push("/")
         }
             </header>
