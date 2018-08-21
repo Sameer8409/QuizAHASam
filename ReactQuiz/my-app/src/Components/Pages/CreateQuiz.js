@@ -200,8 +200,7 @@ render(){
             <div className="createQuiz">
                 <Header/>
                 <div className="row">
-                <div className="createQuiz">
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-sm-3 col-sm-3">
                         <LeftBar/>
                     </div>
                     <div className="col-md-9">
@@ -368,11 +367,10 @@ render(){
                                     </div>
                                 </div>
                             </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-        );
-	}
-}
+            );
+    	}
+    }

@@ -251,16 +251,16 @@ for(let i = 0; i<4; i++)
 }
 
     return(
-            <div className="container-fluid">
-                <Header/>
-                <div className="updateQuiz">
+        <div className="container-fluid">
+            <Header/>
+            <div className="updateQuiz">
                 <div className="row">
-                    <div className="col-md-3">
+                    <div className="col-md-3 col-sm-3 col-sm-3">
                     <LeftBar/>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-9 col-sm-9 col-sm-9">
                         <form method="post" name="handleform" onSubmit={this.submit}>
-                            <div className="PlayQuiz">
+                            <div className="updateQuiz">
                                 <label><h2>Update Quiz</h2></label><br/>
                             <div className = "Update">
                                 <label>Quiz Name</label>
@@ -272,8 +272,8 @@ for(let i = 0; i<4; i++)
                             </div>
                         </div>
                         <div className="Update">    
-                            <div className="col-md-12">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
                                     <p className="help-block">Question1 </p>
                                     <input type="text" className="form-control" ref="question1" name="questionupdate" Value={q[0]}/>
                                 </div>
@@ -300,8 +300,8 @@ for(let i = 0; i<4; i++)
                             </div>
                         </div>
                         <div className="Update">
-                            <div className="col-md-12">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
                                     <p className="help-block">Question2 </p>
                                     <input type = "text" className="form-control" ref="question2" name="questioninsert" Value={q[1]}/>
                                 </div>
@@ -328,8 +328,8 @@ for(let i = 0; i<4; i++)
                             </div>
                         </div>
                         <div className = "Update">
-                            <div className="col-md-12">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
                                     <p className="help-block">Question3 </p>
                                     <input type = "text" className="form-control" ref="question3" name="questioninsert" Value = {q[2]}/>
                                 </div>
@@ -356,8 +356,8 @@ for(let i = 0; i<4; i++)
                             </div>
                         </div>
                         <div className = "Update">
-                            <div className="col-md-12">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
                                     <p className="help-block">question4 </p>
                                     <input type = "text" className="form-control" ref="question4" name="questioninsert" Value = {q[3]} />
                                 </div>
@@ -384,8 +384,8 @@ for(let i = 0; i<4; i++)
                             </div>
                         </div>
                         <div className = "Update">
-                            <div className="col-md-12">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
                                     <p className="help-block">Question5; </p>
                                     <input type = "text" className="form-control" ref="question5" name="questioninsert" Value = {q[4]} />                                </div>
                             </div>
@@ -411,8 +411,8 @@ for(let i = 0; i<4; i++)
                             </div>
                         </div>
                         <div className = "Update">
-                            <div className="col-md-12">
-                                <div className="row">
+                            <div className="row">
+                                <div className="col-md-12">
                                     <p className="help-block">Question 6; </p>
                                     <input type = "text" className="form-control" ref="question6" name="questioninsert" Value = {q[5]}/>
                                 </div>
