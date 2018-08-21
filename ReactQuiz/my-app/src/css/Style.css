@@ -205,10 +205,18 @@ footer
 h5{
   line-height: 200%;
 }
+
 .navbar {
-  padding-bottom: 20px;
+
+  padding-bottom: 250px;
   height: 500px;
   color:orange;
+  margin:0 auto;
+  text-align: left;
+  
+}
+.navbar ul{
+display:block;
 }
 .navbar a{
   color:#fff;
@@ -262,4 +270,7 @@ nav ul li
   list-style-type: none;
   display:inline-block;
   padding-left: 25px;
+}
+.pagination{
+  margin: 0 auto;
 }

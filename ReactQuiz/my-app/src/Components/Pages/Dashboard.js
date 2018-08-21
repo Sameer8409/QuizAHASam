@@ -118,22 +118,22 @@ render(){
         return (<li> {Mobile}</li> );
     });
 
-    return(			
+    return(         
             <div className="Dashboard">
                 <Header/>
-        		<div className="container-fluid">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-3">
+                        <div className="col-md-3 col-sm-3 col-sm-3 ">
                             <LeftBar/>
                         </div>
-                        <div className="col-md-9">
+                        <div className="col-md-9 col-sm-9 col-sm-9">
                             <div className="row">
                                 <div className="col-md-12 col-sm-12 col-sm-12">
                                     <h1>Dashboard</h1>
                                     <hr/>
                                 </div>
                             </div>
-			                <center>
+                            <center>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <NumberofUsers/>
@@ -144,11 +144,11 @@ render(){
                                 </div>
                                 <div className="panel panel-default">
                                     <div className="panel-heading">
-                   		               <i className="fa fa-bar-chart-o fa-fw"></i>players
+                                       <i className="fa fa-bar-chart-o fa-fw"></i>players
                                         <div className="panel-body">
                                             <div className="row">
-                         	                    <div className="col-md-12">
-                            	                   <div className="table-responsive">
+                                                <div className="col-md-12">
+                                                   <div className="table-responsive">
                                                 <table className="table table-bordered table-hover table-striped">
                                                 <thead>
                                                 <tr>
@@ -168,7 +168,7 @@ render(){
                                                 </tr>
                                                 </tbody>
                                                 </table>
-                                                 <div>
+                                                 <div className="pagination">
                                                          <Pagination
                                                            activePage={this.state.activePage}
                                                            itemsCountPerPage={1}
@@ -185,7 +185,7 @@ render(){
                                 </div>
                             </center>
                         </div>
-		            </div>
+                    </div>
                 </div>
             </div>
         );

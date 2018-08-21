@@ -23,5 +23,5 @@ export default class Logout extends Component{
     		Hello There is some problem
     		</div>
     		);
+        }
     }
-}
