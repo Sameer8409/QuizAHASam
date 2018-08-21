@@ -32,43 +32,39 @@
         })
     }
 
-    exports.setSignup=(req,res,next)=>
-    {
+    exports.setSignup=(req,res,next)=>{
     	try{
     		userModel.findOne({email:req.body.email})
-        .then((result)=>{
-        	if(result!=null){
-        		res.send("already exists");
-        	}
-        	else{
-    		async.series({
-     			one:function(callback){
-     			userModel.create({
-     				name:req.body.name,
-    				email:req.body.email,
-    				password:cryptr.encrypt(req.body.password),
-    				confirm_password:req.body.confirm_password,
-    				doj:date.toDateString(),
-    				mobile:req.body.mobile
-    							}, (err, data)=>{
-
-    								const mydata={
-    									data:req.body.email,
-    									error:false,
-    									message:"user data"
-    								}
-
-    								res.send(mydata)
-    								
-    							});
-     			 			},
-     			 			
-     			 		})
-    				}
-     	});
-    }
-    		catch(err){
-    		throw err;
-    		}
+            .then((result)=>{
+            	if(result!=null){
+            		res.send("already exists");
+            	}
+            	else{
+            		async.series({
+             			one:function(callback){
+                 			userModel.create({
+                 				name:req.body.name,
+                				email:req.body.email,
+                				password:cryptr.encrypt(req.body.password),
+                				confirm_password:req.body.confirm_password,
+                				doj:date.toDateString(),
+                				mobile:req.body.mobile
+                			}, (err, data)=>{
+        						const mydata={
+        							data:req.body.email,
+        							error:false,
+        							message:"user data"
+            						}
+                				res.send(mydata)						
+            				    }
+                            );
+             			},
+              		})
+        		}
+         	});
+        }
+    	catch(err){
+    	throw err;
     	}
+    }
     		

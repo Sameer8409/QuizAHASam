@@ -20,9 +20,9 @@ export default class Dashboard extends Component{
         }
     }
     handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    let activePage=pageNumber;
-    var self = this;
+        console.log(`active page is ${pageNumber}`);
+        let activePage=pageNumber;
+        var self = this;
         axios.post('http://sameer-intern.hestalabs.com:5000/api/userDetails', {activePage:pageNumber})
         .then(response=>{
             let data = response.data;
@@ -103,22 +103,22 @@ export default class Dashboard extends Component{
 
         }
     
-render(){
-    let a=(this.state.activePage);
-    let index = this.state.names.map((Name, Index) => {
-        return (<li>{((a-1)*5)+Index+1}</li> );
-    });
-    let name = this.state.names.map((Name, index) => {
-        return (<li>{Name}</li> );
-    });
-    let email = this.state.emails.map((Email, index1) => {
-        return (<li> {Email}</li> );
-    });
-    let mobile = this.state.mobiles.map((Mobile, index2) => {
-        return (<li> {Mobile}</li> );
-    });
+    render(){
+        let a=(this.state.activePage);
+        let index = this.state.names.map((Name, Index) => {
+            return (<li>{((a-1)*5)+Index+1}</li> );
+        });
+        let name = this.state.names.map((Name, index) => {
+            return (<li>{Name}</li> );
+        });
+        let email = this.state.emails.map((Email, index1) => {
+            return (<li> {Email}</li> );
+        });
+        let mobile = this.state.mobiles.map((Mobile, index2) => {
+            return (<li> {Mobile}</li> );
+        });
 
-    return(         
+        return(         
             <div className="Dashboard">
                 <Header/>
                 <div className="container-fluid">

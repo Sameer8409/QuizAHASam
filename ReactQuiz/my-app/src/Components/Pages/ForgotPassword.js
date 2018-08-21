@@ -84,69 +84,70 @@ export default class Forgot extends Component{
 			{
                 self.props.history.push('/Reset', self.state.email);
 			}
-			else
-			{
+			else{
 				document.getElementById("dberror").innerHTML=text2;
                 return false;
-				}
+			}
 		})
 	}
 	render(){
 		return(
 			<div className="UserLogin">
             <FirstHeader/>
-        <div className="container">
-            <div className="row">
-                <div clissName="col-md-12">
-                <center><h1>Reset/Update Password   STEP 1 of 2</h1><h2>please enter your email address and registered Mobile Number</h2></center>
-                </div>
-            </div>
-            <div className = "row">
-                <div className = "col-md-3 col-sm-2 col-xs-1">
-                </div>
-                <div className="panel panel-primary mypanel col-md-6 col-sm-8 col-xs-10 ">
-                    <div className="panel-heading heading">
-                        Forgot Password
-                        <div className="pull-right">QuizAHA!</div>
-                    </div>
-                    <div className = "panel-body">
-                        <div id = "loginmsg">
+                <div className="container">
+                    <div className="row">
+                        <div className = "col-md-3 col-sm-2 col-xs-1">
                         </div>
-                        <form method="post" name="handleForm" onSubmit={this.click}>
-                            <div className="form-group">
-                                <label className="control-label">Email</label>
-                                <input type="email" ref="email" id="email" className="form-control" name="email" placeholder="Ex. example@gmail.com or example@yahoo.co.in" onBlur={this.handleemail} />
-                                <span id="emailverify"></span>
-                            </div>
-                            <div className="form-group">
-                                <label className="control-label">Mobile</label>
-                                <input type="tel" ref="mobile" id="mobile" maxLength="10" className="form-control" name="mobile" placeholder="Ex: 987XXXX321" onBlur={this.handlemobile} />
-                                <span id="mobileverify"></span>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-8 col-sm-7 col-xs-12">
-                                    <button id="update" type="submit" name="update" className="btn btn-success">Verify mobile number</button>
-                                </div>
-                                    
-                                <div className="col-md-4 col-sm-5 col-xs-12">
-                                    <Link to="/"> Back to Login</Link>
-                                </div>
-                            </div>
-                            <div>
-                             <span id="dberror"></span>
-                             </div>
-                        </form>
+                        <div clissName="col-md-6 col-sm-8 col-xs-10">
+                            <center><h1>Reset/Update Password   STEP 1 of 2</h1><h2>please enter your email address and registered Mobile Number</h2></center>
+                        </div>
+                        <div className = "col-md-3 col-sm-2 col-xs-1">
+                        </div>
                     </div>
+                    <div className = "row">
+                        <div className = "col-md-3 col-sm-2 col-xs-1">
+                        </div>
+                        <div className="panel panel-primary mypanel col-md-6 col-sm-8 col-xs-10 ">
+                            <div className="panel-heading heading">
+                                Forgot Password
+                                <div className="pull-right">QuizAHA!</div>
+                            </div>
+                            <div className = "panel-body">
+                                <div id = "loginmsg">
+                                </div>
+                                <form method="post" name="handleForm" onSubmit={this.click}>
+                                    <div className="form-group">
+                                        <label className="control-label">Email</label>
+                                        <input type="email" ref="email" id="email" className="form-control" name="email" placeholder="Ex. example@gmail.com or example@yahoo.co.in" onBlur={this.handleemail} />
+                                        <span id="emailverify"></span>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="control-label">Mobile</label>
+                                        <input type="tel" ref="mobile" id="mobile" maxLength="10" className="form-control" name="mobile" placeholder="Ex: 987XXXX321" onBlur={this.handlemobile} />
+                                        <span id="mobileverify"></span>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-8 col-sm-7 col-xs-12">
+                                            <button id="update" type="submit" name="update" className="btn btn-success">Verify mobile number</button>
+                                        </div>
+                                            
+                                        <div className="col-md-4 col-sm-5 col-xs-12">
+                                            <Link to="/"> Back to Login</Link>
+                                        </div>
+                                    </div>
+                                    <div>
+                                     <span id="dberror"></span>
+                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div className="col-md-3 col-sm-2 col-xs-1"> 
+                        </div>
+                    </div>
+                    <center><p> Wana Play <strong>Ultimate quizes </strong> <i>Login here or <Link to="/Signup">Register yourself</Link></i></p></center>
                 </div>
-            <div className="col-md-3 col-sm-2 col-xs-1"> 
+                <Footer/>
             </div>
-        </div>
-        <center><p> Wana Play <strong>Ultimate quizes </strong> <i>Login here or <Link to="/Signup">Register yourself</Link></i></p></center>
-    </div>
-    <Footer/>
-</div>
-
-			);
+    	);
 	}
-
 }

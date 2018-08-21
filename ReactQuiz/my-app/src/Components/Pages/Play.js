@@ -28,42 +28,39 @@ export default class Play extends Component{
             let quiz = [];
             let time = [];
             let score = [];
-                data.forEach((data) => {
-                    quiz.push(data.quizName);
-                    time.push(data.playTime);
-                    score.push(data.total_score);
-                });
-                self.setState({
-                    quizName: quiz,
-                    time:time,
-                    score:score
-                });
-
-            
+            data.forEach((data) => {
+                quiz.push(data.quizName);
+                time.push(data.playTime);
+                score.push(data.total_score);
+            });
+            self.setState({
+                quizName: quiz,
+                time:time,
+                score:score
+            });
         })
-    .catch(function(err){
-    console.log("error", err);    
-    });   
-}
+        .catch(function(err){
+        console.log("error", err);    
+        });   
+    }
     handlePlay = (event) =>{
         event.preventDefault();
         this.props.history.push("/Game");
     } 
-render(){
-let index = this.state.quizName.map((data, index) => {
-        return (<li>  {index+1} </li> );
-    });
- let quiz = this.state.quizName.map((data, index) => {
-        return (<li>  {data} </li> );
-    });
-let score = this.state.score.map((data, index) => {
-        return (<li>  {data} </li> );
- });
- let time = this.state.time.map((data, index) => {
-        return (<li>  {data} </li> );
- 
-    });
-	return(
+    render(){
+        let index = this.state.quizName.map((data, index) => {
+            return (<li>  {index+1} </li> );
+        });
+        let quiz = this.state.quizName.map((data, index) => {
+            return (<li>  {data} </li> );
+        });
+        let score = this.state.score.map((data, index) => {
+            return (<li>  {data} </li> );
+         });
+        let time = this.state.time.map((data, index) => {
+            return (<li>  {data} </li> ); 
+        });
+    	return(
             <div className="play">
                 <Header/>
                 <div className="container">
@@ -113,6 +110,6 @@ let score = this.state.score.map((data, index) => {
                 </div>
                 <Footer/>
             </div>
-    )
-}
+        )
+    }
 }

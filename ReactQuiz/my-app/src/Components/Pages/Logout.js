@@ -7,21 +7,21 @@ export default class Logout extends Component{
         }
     }   
     render(){
-            <header>
-            if(localStorage.mydata === "null" && localStorage.mydata != "admin@gmail.com")
+        <header>
+        if(localStorage.mydata === "null" && localStorage.mydata != "admin@gmail.com")
         {
             this.props.history.push("/")
             
         }
-        else
-        {
+        else{
         localStorage.mydata = "null", 
         this.props.history.push("/")
         }
-            </header>
-        return(<div>
-    		Hello There is some problem
-    		</div>
-    		);
-        }
+        </header>
+        return(
+            <div>
+            <h3>Hello There is some problem</h3>
+            </div>
+		);
     }
+}

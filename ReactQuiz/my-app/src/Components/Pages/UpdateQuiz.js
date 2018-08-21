@@ -51,12 +51,8 @@ export default class UpdateQuiz extends Component{
             ans51:'',
             ans52:'',
             ans53:''
-
-
-            }
         }
-
-    
+    }
     componentWillMount(){
         if(localStorage.mydata != "admin@gmail.com")
         {
@@ -89,10 +85,9 @@ export default class UpdateQuiz extends Component{
                             q_no: qno,
                             quiz_id:quizId
                         });
-                            data.forEach((data) => {
-                                getQuiz.push(data.quizName);
-                            });
-                        
+                        data.forEach((data) => {
+                            getQuiz.push(data.quizName);
+                        });
                         self.setState({
                             quizName: getQuiz,
                             questions: data[self.state.q_no].questions,
@@ -104,46 +99,47 @@ export default class UpdateQuiz extends Component{
                             answer6 : data[self.state.q_no].answer6,
                         
                         });
-                    })
-                }
+                    }
+                )
             }
         }
-submit = (event) => {
-    event.preventDefault();
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to submit all the changes and update the Quiz.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => this.handleform()
-        },
-        {
-          label: 'No',
-          onClick: () => ""
-        }
-      ]
-    })
-  };
-  reset = (event) => {
-    event.preventDefault();
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to do this? All changes will be reset.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: (event) => this.props.history.push("/QuizManagement", this.props.location.state) 
-        },
-        {
-          label: 'No',
-          onClick: () => ""
-        }
-      ]
-    })
-  };
+    }
+    submit = (event) => {
+        event.preventDefault();
+        confirmAlert({
+          title: 'Confirm to submit',
+          message: 'Are you sure to submit all the changes and update the Quiz.',
+          buttons: [
+            {
+              label: 'Yes',
+              onClick: () => this.handleform()
+            },
+            {
+              label: 'No',
+              onClick: () => ""
+            }
+          ]
+        })
+      };
+    reset = (event) => {
+        event.preventDefault();
+        confirmAlert({
+            title: 'Confirm to submit',
+            message: 'Are you sure to do this? All changes will be reset.',
+            buttons: [
+            {
+              label: 'Yes',
+              onClick: (event) => this.props.history.push("/QuizManagement", this.props.location.state) 
+            },
+                {
+                  label: 'No',
+                  onClick: () => ""
+                }
+           ]
+        })
+    };
     
-handleform = (event) => {
+    handleform = (event) => {
         this.quiz_id=this.state.quiz_id;
         this.quizName=this.refs.quizName.value;
         this.question1=this.refs.question1.value;
@@ -176,7 +172,7 @@ handleform = (event) => {
         this.ans61=this.refs.ans61.value;
         this.ans62=this.refs.ans62.value;
         this.ans63=this.refs.ans63.value;
-    var self = this;
+        var self = this;
         axios.post('http://sameer-intern.hestalabs.com:5000/api/UpdateQuiz', {
             quizName:this.quizName,
             question1:this.question1,
@@ -210,249 +206,242 @@ handleform = (event) => {
             ans62:this.ans62,
             ans63:this.ans63,
             quiz_id:this.quiz_id
-          })
+        })
         .then(function(response){
             console.log(response);
             self.props.history.push('/AdminLogin', "4");
         })
-}
-
-
-render(){
-    var resultRows
-    let list = this.state.quizName;
- let q = [];
- for(let i = 0; i < 6; i++)
- {
-  q[i] = this.state.questions[i];
- }
- let ans1 = [];
- let ans2 = [];
- let ans3 = [];
- let ans4 = [];
- let ans5 = [];
- let ans6 = [];
- let ans11 = [];
- let ans22 = [];
- let ans33 = [];
- let ans44 = [];
- let ans55 = [];
- let ans66 = [];
- 
-
-for(let i = 0; i<4; i++)
-{
-    ans11[i] = this.state.answer1[i];
-    ans22[i] = this.state.answer2[i];
-    ans33[i] = this.state.answer3[i];
-    ans44[i] = this.state.answer4[i];
-    ans55[i] = this.state.answer5[i];
-    ans66[i] = this.state.answer6[i];
-}
-
-    return(
-        <div className="container-fluid">
-            <Header/>
-            <div className="updateQuiz">
-                <div className="row">
-                    <div className="col-md-3 col-sm-3 col-sm-3">
-                    <LeftBar/>
-                    </div>
-                    <div className="col-md-9 col-sm-9 col-sm-9">
-                        <form method="post" name="handleform" onSubmit={this.submit}>
-                            <div className="updateQuiz">
-                                <label><h2>Update Quiz</h2></label><br/>
-                            <div className = "Update">
-                                <label>Quiz Name</label>
+    }
+    render(){
+        var resultRows
+        let list = this.state.quizName;
+        let q = [];
+        for(let i = 0; i < 6; i++){
+          q[i] = this.state.questions[i];
+        }
+        let ans1 = [];
+        let ans2 = [];
+        let ans3 = [];
+        let ans4 = [];
+        let ans5 = [];
+        let ans6 = [];
+        let ans11 = [];
+        let ans22 = [];
+        let ans33 = [];
+        let ans44 = [];
+        let ans55 = [];
+        let ans66 = [];
+        for(let i = 0; i<4; i++){
+            ans11[i] = this.state.answer1[i];
+            ans22[i] = this.state.answer2[i];
+            ans33[i] = this.state.answer3[i];
+            ans44[i] = this.state.answer4[i];
+            ans55[i] = this.state.answer5[i];
+            ans66[i] = this.state.answer6[i];
+        }
+        return(
+            <div className="container-fluid">
+                <Header/>
+                <div className="updateQuiz">
+                    <div className="row">
+                        <div className="col-md-3 col-sm-3 col-sm-3">
+                        <LeftBar/>
+                        </div>
+                        <div className="col-md-9 col-sm-9 col-sm-9">
+                            <form method="post" name="handleform" onSubmit={this.submit}>
+                                <div className="updateQuiz">
+                                    <label><h2>Update Quiz</h2></label><br/>
+                                <div className = "Update">
+                                    <label>Quiz Name</label>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                        <input className="form-control" ref="quizName" name="quizName" Value={list[this.state.q_no]} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="Update">    
                                 <div className="row">
                                     <div className="col-md-12">
-                                    <input className="form-control" ref="quizName" name="quizName" Value={list[this.state.q_no]} />
+                                        <p className="help-block">Question1 </p>
+                                        <input type="text" className="form-control" ref="question1" name="questionupdate" Value={q[0]}/>
+                                    </div>
+                                </div>
+                                <div className="question1">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <p className="help-block">correct Ans </p>
+                                            <input type="text" className="form-control" name="answer1" ref="correctAns1" Value={ans11[0]}/> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer1" ref="ans11" Value={ans11[1]}/> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer1" ref="ans12" Value={ans11[2]} />
+                                        </div>
+                                        <div className="col-md-3">    
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer1" ref="ans13" Value={ans11[3]} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="Update">    
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <p className="help-block">Question1 </p>
-                                    <input type="text" className="form-control" ref="question1" name="questionupdate" Value={q[0]}/>
-                                </div>
-                            </div>
-                            <div className="question1">
+                            <div className="Update">
                                 <div className="row">
-                                    <div className="col-md-3">
+                                    <div className="col-md-12">
+                                        <p className="help-block">Question2 </p>
+                                        <input type = "text" className="form-control" ref="question2" name="questioninsert" Value={q[1]}/>
+                                    </div>
+                                </div>
+                                <div className="question2">
+                                    <div className="row">
+                                        <div className="col-md-3">
                                         <p className="help-block">correct Ans </p>
-                                        <input type="text" className="form-control" name="answer1" ref="correctAns1" Value={ans11[0]}/> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer1" ref="ans11" Value={ans11[1]}/> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer1" ref="ans12" Value={ans11[2]} />
-                                    </div>
-                                    <div className="col-md-3">    
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer1" ref="ans13" Value={ans11[3]} />
+                                            <input type="text" className="form-control" name="answer2" ref="correctAns2" Value={ans22[0]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer2" ref="ans21" Value={ans22[1]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer2" ref="ans22" Value={ans22[2]} /> 
+                                        </div>
+                                        <div className="col-md-3">    
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer2" ref="ans23" Value={ans22[3]} /> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="Update">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <p className="help-block">Question2 </p>
-                                    <input type = "text" className="form-control" ref="question2" name="questioninsert" Value={q[1]}/>
-                                </div>
-                            </div>
-                            <div className="question2">
+                            <div className = "Update">
                                 <div className="row">
-                                    <div className="col-md-3">
-                                    <p className="help-block">correct Ans </p>
-                                        <input type="text" className="form-control" name="answer2" ref="correctAns2" Value={ans22[0]} /> 
+                                    <div className="col-md-12">
+                                        <p className="help-block">Question3 </p>
+                                        <input type = "text" className="form-control" ref="question3" name="questioninsert" Value = {q[2]}/>
                                     </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer2" ref="ans21" Value={ans22[1]} /> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer2" ref="ans22" Value={ans22[2]} /> 
-                                    </div>
-                                    <div className="col-md-3">    
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer2" ref="ans23" Value={ans22[3]} /> 
+                                </div>
+                                <div className="question3">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                        <p className="help-block">correct Ans </p>
+                                            <input type="text" className="form-control" name="answer3" ref="correctAns3" Value={ans33[0]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer3" ref="ans31" Value={ans33[1]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer3" ref="ans32" Value={ans33[2]} /> 
+                                        </div>
+                                        <div className="col-md-3">    
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer3" ref="ans33" Value={ans33[3]} /> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className = "Update">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <p className="help-block">Question3 </p>
-                                    <input type = "text" className="form-control" ref="question3" name="questioninsert" Value = {q[2]}/>
-                                </div>
-                            </div>
-                            <div className="question3">
+                            <div className = "Update">
                                 <div className="row">
-                                    <div className="col-md-3">
-                                    <p className="help-block">correct Ans </p>
-                                        <input type="text" className="form-control" name="answer3" ref="correctAns3" Value={ans33[0]} /> 
+                                    <div className="col-md-12">
+                                        <p className="help-block">question4 </p>
+                                        <input type = "text" className="form-control" ref="question4" name="questioninsert" Value = {q[3]} />
                                     </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer3" ref="ans31" Value={ans33[1]} /> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer3" ref="ans32" Value={ans33[2]} /> 
-                                    </div>
-                                    <div className="col-md-3">    
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer3" ref="ans33" Value={ans33[3]} /> 
+                                </div>
+                                <div className="question4">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                        <p className="help-block">correct Ans </p>
+                                            <input type="text" className="form-control" name="answer4" ref="correctAns4" Value={ans44[0]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer4" ref="ans41" Value={ans44[1]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer4" ref="ans42" Value={ans44[2]} /> 
+                                        </div>
+                                        <div className="col-md-3">    
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer4" ref="ans43" Value={ans44[3]} /> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className = "Update">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <p className="help-block">question4 </p>
-                                    <input type = "text" className="form-control" ref="question4" name="questioninsert" Value = {q[3]} />
-                                </div>
-                            </div>
-                            <div className="question4">
+                            <div className = "Update">
                                 <div className="row">
-                                    <div className="col-md-3">
-                                    <p className="help-block">correct Ans </p>
-                                        <input type="text" className="form-control" name="answer4" ref="correctAns4" Value={ans44[0]} /> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer4" ref="ans41" Value={ans44[1]} /> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer4" ref="ans42" Value={ans44[2]} /> 
-                                    </div>
-                                    <div className="col-md-3">    
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer4" ref="ans43" Value={ans44[3]} /> 
+                                    <div className="col-md-12">
+                                        <p className="help-block">Question5; </p>
+                                        <input type = "text" className="form-control" ref="question5" name="questioninsert" Value = {q[4]} />                                </div>
+                                </div>
+                                <div className="question">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                        <p className="help-block">correct Ans </p>
+                                            <input type="text" className="form-control" name="answer5" ref="correctAns5" Value={ans55[0]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer5" ref="ans51" Value={ans55[1]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer5" ref="ans52" Value={ans55[2]} /> 
+                                        </div>
+                                        <div className="col-md-3">    
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer5" ref="ans53" Value={ans55[3]} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className = "Update">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <p className="help-block">Question5; </p>
-                                    <input type = "text" className="form-control" ref="question5" name="questioninsert" Value = {q[4]} />                                </div>
-                            </div>
-                            <div className="question">
+                            <div className = "Update">
                                 <div className="row">
-                                    <div className="col-md-3">
-                                    <p className="help-block">correct Ans </p>
-                                        <input type="text" className="form-control" name="answer5" ref="correctAns5" Value={ans55[0]} /> 
+                                    <div className="col-md-12">
+                                        <p className="help-block">Question 6; </p>
+                                        <input type = "text" className="form-control" ref="question6" name="questioninsert" Value = {q[5]}/>
                                     </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer5" ref="ans51" Value={ans55[1]} /> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer5" ref="ans52" Value={ans55[2]} /> 
-                                    </div>
-                                    <div className="col-md-3">    
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer5" ref="ans53" Value={ans55[3]} />
+                                </div>
+                                <div className="question">
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                        <p className="help-block">correct Ans </p>
+                                            <input type="text" className="form-control" name="answer6" ref="correctAns6" Value={ans66[0]} /> 
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer6" ref="ans61" Value={ans66[1]} />
+                                        </div>
+                                        <div className="col-md-3">
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer6" ref="ans62" Value={ans66[2]} /> 
+                                        </div>
+                                        <div className="col-md-3">    
+                                        <p className="help-block">Incorrect Ans </p>
+                                            <input type="text" className="form-control" name="answer6" ref="ans63" Value={ans66[3]} /> 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                                <div className="submit-game">
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <button type = "submit" className="btn btn-primary btn-lg btn-block" >Update Now</button>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <button type="button" onClick={this.reset} className="btn btn-primary btn-lg btn-block"> Don't want to update (Go Back) </button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </form>
                         </div>
-                        <div className = "Update">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <p className="help-block">Question 6; </p>
-                                    <input type = "text" className="form-control" ref="question6" name="questioninsert" Value = {q[5]}/>
-                                </div>
-                            </div>
-                            <div className="question">
-                                <div className="row">
-                                    <div className="col-md-3">
-                                    <p className="help-block">correct Ans </p>
-                                        <input type="text" className="form-control" name="answer6" ref="correctAns6" Value={ans66[0]} /> 
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer6" ref="ans61" Value={ans66[1]} />
-                                    </div>
-                                    <div className="col-md-3">
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer6" ref="ans62" Value={ans66[2]} /> 
-                                    </div>
-                                    <div className="col-md-3">    
-                                    <p className="help-block">Incorrect Ans </p>
-                                        <input type="text" className="form-control" name="answer6" ref="ans63" Value={ans66[3]} /> 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            <div className="submit-game">
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <button type = "submit" className="btn btn-primary btn-lg btn-block" >Update Now</button>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <button type="button" onClick={this.reset} className="btn btn-primary btn-lg btn-block"> Don't want to update (Go Back) </button>
-                                    </div>
-                                </div>
-                            </div>
-                    </form>
                     </div>
                 </div>
             </div>
-        </div>
         );
     }
 }

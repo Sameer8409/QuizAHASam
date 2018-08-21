@@ -4,7 +4,6 @@ import React, {Component} from 'react';
 import Footer from '../../Components/Include/Footer.js';
 import FirstHeader from '../../Components/Include/FirstHeader.js';
 export default class Signup extends Component{
-
     constructor(props){
         super(props);
         this.click=this.click.bind(this);
@@ -15,21 +14,18 @@ export default class Signup extends Component{
             confirm_password:'',
             doj:'',
             mobile:''
-
         }
     }
+    click = (event) => {
+        event.preventDefault();
+        this.handlename();
+        this.handleemail();
+        this.handlepasswords();
+        this.handleconfirm_password();
+        this.handlemobile();
+        this.handleform();
 
-click = (event) => {
-    event.preventDefault();
-    this.handlename();
-    this.handleemail();
-    this.handlepasswords();
-    this.handleconfirm_password();
-    this.handlemobile();
-    this.handleform();
-
-}
-
+    }
     handlename=(event)=>{
         //event.preventDefault();
         let name = this.refs.name.value;
@@ -127,7 +123,6 @@ click = (event) => {
         if(this.state.name===""||this.state.email===""||this.state.password===""||this.state.confirm_password===""||this.state.mobile==="")
         {
             return false;
-
         }
         var self = this;
         axios.post('http://sameer-intern.hestalabs.com:5000/api/signup', {
@@ -151,79 +146,80 @@ click = (event) => {
                 }
                 else{
                     localStorage.setItem('mydata', response.data.data);
-            self.props.history.push('/Play', self.state.email);
-        }}
+                    self.props.history.push('/Play', self.state.email);
+                }
+            }
         })
         .catch(function(err){
             console.log("error");    
         });
     }
-render(){
-    return(
-<div className="signup">
-    <FirstHeader/>
-    <div className="container">
-        <div className="panel panel-primary signpanel">
-            <div className="panel-heading signup">
-                <h3> User Registration Page </h3>
+    render(){
+        return(
+            <div className="signup">
+                <FirstHeader/>
+                <div className="container">
+                    <div className="panel panel-primary signpanel">
+                        <div className="panel-heading signup">
+                            <h3> User Registration Page </h3>
+                        </div>
+                        <div className="panel-body">
+                            <form  method="post" onSubmit={this.click}>
+                                <div className="form-group">
+                                    <label className="col-md-12 control-label">Name</label>
+                                    <div className="col-md-12 gutter-left">
+                                    <input type="text" ref="name" name="name" id="name" className="form-control" placeholder="Enter your name" maxLength="30" onBlur={this.handlename} />
+                                        <span id="nameverify"></span>
+                                        <div id="name"></div>
+                                    </div>
+                                </div>
+                                <div className="form-group col-md-12 gutter-left">
+                                    <label className="control-label">Email Address</label>
+                                        <input title="suggestion"  type="email" ref="email" name="emailid" id="emailid" className="form-control" placeholder="Ex. example@gmail.com or example@yahoo.co.in" onBlur={this.handleemail}  /> 
+                                        <span id="emailverify"></span>
+                                </div>
+
+                                <div className="form-group col-md-12 gutter-left">
+                                    <label className="control-label">password</label>
+                                    <div>
+                                    <input type="password" ref="password" name="password" id="pas" className="form-control" placeholder="Enter password" maxLength="16" onBlur={this.handlepasswords} />
+                                    <span id="passverify"></span>
+                                        
+                                    </div>
+                                </div>
+                                <div className="form-group col-md-12 gutter-left">
+                                    <label className="control-label">Confirm password</label>
+                                    <div >
+                                    <input type="password"  id="cpas" ref="confirm_password" name="confirm" className="form-control" maxLength="16" placeholder="confirm password" onBlur={this.handleconfirm_password} />
+                                        <span id="confirm_password"></span>
+                                    </div>
+                                </div>
+
+                                <div className="form-group col-md-12 gutter-left">
+                                    <label className="control-label">Phone no.</label>
+                                        <div className="input-group">
+                                            <div className="input-group-addon">+91</div>
+                                        <input type="text"  ref="mobile" className="form-control" id="phone" name="phone" placeholder="Ex. 971 XXXX 823" maxLength="10" onBlur={this.handlemobile}  />
+                                        <span id="mobileverify"></span>
+                                        </div>
+                                        <div id="phonediv"></div>
+
+                                </div>
+                                
+                                <div className="form-group policy col-md-12 gutter-left">
+                                    <p>You must agree with our <Link to="/Terms"> terms and conditions</Link></p>
+                                    <p>Already a user <Link to="/">Login here</Link> </p>
+                                </div>
+                                <div className="forsm-group col-md-12 gutter-left">
+
+                                    <button type="submit" id="sub" className="btn-block" name="submit">SIGN IN</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <Footer/>
             </div>
-            <div className="panel-body">
-                <form  method="post" onSubmit={this.click}>
-                    <div className="form-group">
-                        <label className="col-md-12 control-label">Name</label>
-                        <div className="col-md-12 gutter-left">
-                        <input type="text" ref="name" name="name" id="name" className="form-control" placeholder="Enter your name" maxLength="30" onBlur={this.handlename} />
-                            <span id="nameverify"></span>
-                            <div id="name"></div>
-                        </div>
-                    </div>
-                    <div className="form-group col-md-12 gutter-left">
-                        <label className="control-label">Email Address</label>
-                            <input title="suggestion"  type="email" ref="email" name="emailid" id="emailid" className="form-control" placeholder="Ex. example@gmail.com or example@yahoo.co.in" onBlur={this.handleemail}  /> 
-                            <span id="emailverify"></span>
-                    </div>
-
-                    <div className="form-group col-md-12 gutter-left">
-                        <label className="control-label">password</label>
-                        <div>
-                        <input type="password" ref="password" name="password" id="pas" className="form-control" placeholder="Enter password" maxLength="16" onBlur={this.handlepasswords} />
-                        <span id="passverify"></span>
-                            
-                        </div>
-                    </div>
-                    <div className="form-group col-md-12 gutter-left">
-                        <label className="control-label">Confirm password</label>
-                        <div >
-                        <input type="password"  id="cpas" ref="confirm_password" name="confirm" className="form-control" maxLength="16" placeholder="confirm password" onBlur={this.handleconfirm_password} />
-                            <span id="confirm_password"></span>
-                        </div>
-                    </div>
-
-                    <div className="form-group col-md-12 gutter-left">
-                        <label className="control-label">Phone no.</label>
-                            <div className="input-group">
-                                <div className="input-group-addon">+91</div>
-                            <input type="text"  ref="mobile" className="form-control" id="phone" name="phone" placeholder="Ex. 971 XXXX 823" maxLength="10" onBlur={this.handlemobile}  />
-                            <span id="mobileverify"></span>
-                            </div>
-                            <div id="phonediv"></div>
-
-                    </div>
-                    
-                    <div className="form-group policy col-md-12 gutter-left">
-                        <p>You must agree with our <Link to="/Terms"> terms and conditions</Link></p>
-                        <p>Already a user <Link to="/">Login here</Link> </p>
-                    </div>
-                    <div className="forsm-group col-md-12 gutter-left">
-
-                        <button type="submit" id="sub" className="btn-block" name="submit">SIGN IN</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <Footer/>
-</div>
-    );
-}
+        );
+    }
 }

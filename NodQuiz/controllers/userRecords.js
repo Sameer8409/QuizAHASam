@@ -13,11 +13,11 @@ exports.userRecords = (req, res)=>{
                 total_score:req.body.total_score
             },(err, data)=>{
                 const mydata={
-                            data:req.body.email,
-                            status:true,
-                            error:false,
-                            message:"user data"
-                            }
+                    data:req.body.email,
+                    status:true,
+                    error:false,
+                    message:"user data"
+                }
                 res.send(mydata);
             })
         }
@@ -26,7 +26,6 @@ exports.userRecords = (req, res)=>{
         }
     })
 } 
-
 exports.showRecords = (req, res)=>{
     resultModel.find({playerEmail:req.body.email}).sort({_id:-1}).limit(5)
     .then((result)=>{

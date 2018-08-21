@@ -4,9 +4,7 @@ exports.totalUsers = (req, res)=>{
 	.then((result)=>{
 		if(result != null)
 		{
-		res.send(result);
-
-		
+		res.send(result);		
 		}(err, data)=>{
 			const  mydata={
 				data:result,
@@ -14,8 +12,6 @@ exports.totalUsers = (req, res)=>{
 				error:false,
 				message:"User details"
 			}
-			
-		}
-			
+		}		
 	})	
 } 

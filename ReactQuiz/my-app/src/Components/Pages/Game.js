@@ -47,47 +47,47 @@ export default class Game extends Component{
         console.log("Id",event.target.id);
         console.log("Value", this.state.email)
         this.props.history.push('/PlayQuiz', x);
-}
-render(){
-    console.log("histopry", this.state.email);
-    let list = this.state.quizName.map((data, index) => {
-        return (<li><div className="media">
-                        <div className="media-body">
-                            <h4>{data}</h4>
-                            <p>Want to play this game please click on play now coresponding to the Quiz Name</p>
-                        </div>
-                        <div className="media-right align-self-center">
-                            <button id={index} type="button" onClick={this.handleQuiz} name="quizes" className="btn btn-default"> {"Play Now"} </button>
-                        </div>
-                    </div>
-                </li>
-            );
-        });
-
-	return(
-    <div className="Game">
-        <Header/>
-        <div className="game">
-            <div className="constructor">
-                <section className="row-section">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <h2 className="text-center"><span>Quiz Game Listing</span>Created with <i className="fa fa-heart"></i> from<Link to="#"> Sameer Khan</Link></h2>
+    }
+    render(){
+        console.log("histopry", this.state.email);
+        let list = this.state.quizName.map((data, index) => {
+            return (<li><div className="media">
+                            <div className="media-body">
+                                <h4>{data}</h4>
+                                <p>Want to play this game please click on play now coresponding to the Quiz Name</p>
+                            </div>
+                            <div className="media-right align-self-center">
+                                <button id={index} type="button" onClick={this.handleQuiz} name="quizes" className="btn btn-default"> {"Play Now"} </button>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-md-12  col-sm-12  col-xs-10 row-block">
-                                <ul id="sortable">
-                                    {list}                       
-                                </ul>
+                    </li>
+                );
+            });
+        return(
+            <div className="Game">
+                <Header/>
+                <div className="game">
+                    <div className="constructor">
+                        <section className="row-section">
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-md-12">
+                                        <h2 className="text-center"><span>Quiz Game Listing</span>Created with <i className="fa fa-heart"></i> from<Link to="#"> Sameer Khan</Link></h2>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-md-12  col-sm-12  col-xs-10 row-block">
+                                        <ul id="sortable">
+                                            {list}                       
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
-                </section>
-            </div>
-        </div>  
-        <Footer/>    
-    </div>   
-)}
+                </div>  
+                <Footer/>    
+            </div>   
+        )
+    }
 }

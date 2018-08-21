@@ -127,12 +127,11 @@ export default class CreateQuiz extends Component{
             }
             else{
             self.props.history.push('/QuizManagement', "4");
-        }
+            }
         })
         .catch(function(err){
             console.log("error");    
         });
-        
     }
     handlename=(event)=>{
         //event.preventDefault();
@@ -140,7 +139,8 @@ export default class CreateQuiz extends Component{
         // this.name=this.refs.name.value;
         var regex= /^[a-zA-Z ]{2,30}$/;
         var text="*Quiz name should start with an alphabet and must have atlest two character";
-        if(!(name.match(regex))){
+        if(!(name.match(regex)))
+        {
             document.getElementById("quiznameverify").innerHTML=text;
             return false;
         }
@@ -160,43 +160,41 @@ export default class CreateQuiz extends Component{
         this.submit();
     }
     submit = (event) => {
-    this.handlename();
-    confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure to submit this form to create Quiz.',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => this.handleform()
-        },
-        {
-          label: 'No',
-          onClick: () => ""
-        }
-      ]
-    })
-  };
-  reset = (event) => {
-    event.preventDefault();
-    this.handlename();
-    confirmAlert({
-      title: 'Confirm to reset',
-      message: 'Are you sure to do this? All changes will be reset. ',
-      buttons: [
-        {
-          label: 'Yes',
-          onClick: () => this.props.history.push("/AdminLogin", "3")
-        },
-        {
-          label: 'No',
-          onClick: () => ""
-        }
-      ]
-    })
-  };
+        this.handlename();
+        confirmAlert({
+              title: 'Confirm to submit',
+              message: 'Are you sure to submit this form to create Quiz.',
+              buttons: [{
+                  label: 'Yes',
+                  onClick: () => this.handleform()
+            },
+                {
+                  label: 'No',
+                  onClick: () => ""
+                }
+            ]
+        })
+    };
+    reset = (event) => {
+        event.preventDefault();
+        this.handlename();
+        confirmAlert({
+            title: 'Confirm to reset',
+            message: 'Are you sure to do this? All changes will be reset. ',
+            buttons: [{
+                  label: 'Yes',
+                  onClick: () => this.props.history.push("/AdminLogin", "3")
+            },
+                {
+                  label: 'No',
+                  onClick: () => ""
+                }
+            ]
+        })
+    };
 
-render(){
-	return(
+    render(){
+	    return(
             <div className="createQuiz">
                 <Header/>
                 <div className="row">
@@ -371,6 +369,6 @@ render(){
                     </div>
                 </div>
             </div>
-            );
-    	}
-    }
+        );
+	}
+}

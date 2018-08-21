@@ -16,8 +16,8 @@ export default class Result extends Component{
 		if(localStorage.mydata === "null" && localStorage.mydata != "admin@gmail.com")
         {
             window.location="/";
-        }else
-        {
+        }
+        else{
             if(this.props.location.state===undefined)
             {
                 window.location="/Play";
@@ -46,7 +46,7 @@ export default class Result extends Component{
 		});
         console.log("Result", this.state.result[1]);
 		let score=this.state.result[2];
-return(
+        return(
             <div id="page-wrapper">
                 <Header/>
         	    <div className="container-fluid">
@@ -60,7 +60,6 @@ return(
             	            <i className="fa fa-bar-chart-o fa-fw"></i> Result
                             <div className="pull-right">
                                  <div className="btn-group">
-
                                     <button className="btn btn-success" onClick={this.handleUsers}><Link to="/Game">Play Again </Link></button>
                                 </div>
                             </div>
@@ -69,39 +68,39 @@ return(
                     	           <Col md={12}>
                     		          <div className="table-responsive">
                         		           <table className="table table-bordered table-hover table-striped">
-                            	           <thead>
-                                                <tr>
-                                                    <th>      </th>
-                                                    <th>Your Answers</th>
-                                                    <th>Currect Answers</th>
-                                                    <th>Your Score</th>
-                                                </tr>
-                            	            </thead>
-                           		            <tbody>
-                            	                <tr>
-                            		                <td>	</td>
-                            		                <td>{givenAns}</td>
-                            		                <td><strong>{currect}</strong></td>
-                                                    <td><strong>{score}</strong>/60</td>
-                                                </tr>
-                                            </tbody>
-                        		        </table>
-                    		        </div>
-                   		        </Col>
-                   	        </Row>
-                   	        <Row>	
-                		        <Col md={12}>
-                			         <div id="morris-bar-chart">
-                			         </div>
-                		        </Col>
-            		        </Row>
-    			        </div>
- 			        </div>
- 		        </div>
-            </div> 
-            <Footer/>  
-        </div>
-	);
+                                	           <thead>
+                                                    <tr>
+                                                        <th>      </th>
+                                                        <th>Your Answers</th>
+                                                        <th>Currect Answers</th>
+                                                        <th>Your Score</th>
+                                                    </tr>
+                                	            </thead>
+                               		            <tbody>
+                                	                <tr>
+                                		                <td>	</td>
+                                		                <td>{givenAns}</td>
+                                		                <td><strong>{currect}</strong></td>
+                                                        <td><strong>{score}</strong>/60</td>
+                                                    </tr>
+                                                </tbody>
+                        		            </table>
+                    		            </div>
+                       		        </Col>
+                       	        </Row>
+                       	        <Row>	
+                    		        <Col md={12}>
+                    			         <div id="morris-bar-chart">
+                    			         </div>
+                    		        </Col>
+                		        </Row>
+        			        </div>
+     			        </div>
+     		        </div>
+                </div> 
+                <Footer/>  
+            </div>
+	   );
 	}
 }
 
