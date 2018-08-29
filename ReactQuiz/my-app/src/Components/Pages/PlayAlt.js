@@ -44,7 +44,7 @@ export default class PlayAlt extends Component{
     const x = this.state;
     console.log(this.state);
     var self = this;
-    axios.post('http://localhost:5000/api/createQuiz', {
+    axios.post('http://sameer-intern.hestalabs.com:5000/api/createQuiz', {
       name:this.state.name,
       questions:this.state.questions,
       options:this.state.options

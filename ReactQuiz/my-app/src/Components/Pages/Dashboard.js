@@ -23,7 +23,7 @@ export default class Dashboard extends Component{
     console.log(`active page is ${pageNumber}`);
     let activePage=pageNumber;
     var self = this;
-        axios.post('http://localhost:5000/api/userDetails', {activePage:pageNumber})
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/userDetails', {activePage:pageNumber})
         .then(response=>{
             let data = response.data;
             let name = [];
@@ -63,14 +63,14 @@ export default class Dashboard extends Component{
                 this.props.history.push("/");
            }
             var self = this;
-            axios.post('http://localhost:5000/api/totalUsers', {})
+            axios.post('http://sameer-intern.hestalabs.com:5000/api/totalUsers', {})
             .then(response=>{
                 let totalRecords=response.data.length;
                 this.setState({
                     totalPages:totalRecords/5
                 })
             });
-            axios.post('http://localhost:5000/api/userDetails', {activePage:1})
+            axios.post('http://sameer-intern.hestalabs.com:5000/api/userDetails', {activePage:1})
             .then(function(response){
                 let data = response.data;
                 let name = [];

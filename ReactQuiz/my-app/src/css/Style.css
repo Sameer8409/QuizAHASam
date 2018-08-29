@@ -45,7 +45,7 @@ body {
 button a{
   color:#fff;
 }
-.play button{
+.signup button, .play button{
   background-color: #8f849b;
   max-width:400px;
   margin: 0 auto;

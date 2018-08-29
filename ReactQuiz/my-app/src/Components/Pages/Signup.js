@@ -130,7 +130,7 @@ click = (event) => {
 
         }
         var self = this;
-        axios.post('http://localhost:5000/api/signup', {
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/signup', {
             name:this.state.name,
             email:this.state.email,
             password: this.state.password,
@@ -204,8 +204,8 @@ render(){
                             <div className="input-group">
                                 <div className="input-group-addon">+91</div>
                             <input type="text"  ref="mobile" className="form-control" id="phone" name="phone" placeholder="Ex. 971 XXXX 823" maxLength="10" onBlur={this.handlemobile}  />
-                            <span id="mobileverify"></span>
                             </div>
+                            <span id="mobileverify"></span>
                             <div id="phonediv"></div>
 
                     </div>
@@ -216,7 +216,7 @@ render(){
                     </div>
                     <div className="forsm-group col-md-12 gutter-left">
 
-                        <button type="submit" id="sub" className="btn-block" name="submit">SIGN IN</button>
+                        <button type="submit" id="sub" className="btn btn-primary btn-lg btn-block" name="submit"><center>SIGN UP</center></button>
                     </div>
                 </form>
             </div>

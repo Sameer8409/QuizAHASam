@@ -25,7 +25,7 @@ export default class Game extends Component{
                 this.props.history.push("/Game")
             }
         var self=this;
-        axios.post('http://localhost:5000/api/getQuiz',{})
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/getQuiz',{})
             .then(function(response){
                 let data = response.data;
                 console.log(data.name);

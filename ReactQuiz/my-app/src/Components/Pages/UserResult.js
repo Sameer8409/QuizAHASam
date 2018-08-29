@@ -45,7 +45,7 @@ export default class UserResult extends Component{
     }
     handlAgain=(event)=>{
         var self = this;
-        axios.post('http://localhost:5000/api/userRecord', {
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/userRecord', {
             email:localStorage.mydata,
             quizName: this.state.x[6],
             total_score:this.state.x[3]

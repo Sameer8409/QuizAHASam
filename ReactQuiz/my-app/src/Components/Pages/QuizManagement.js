@@ -46,7 +46,7 @@ constructor(props){
   };
     handleDeleteQuiz = (event) => {
         var self = this;
-        axios.post('http://localhost:5000/api/deleteQuiz', {name:this.name})
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/deleteQuiz', {name:this.name})
         .then(function(response){
             console.log(response.data)
             if(response.data !== undefined)
@@ -76,7 +76,7 @@ constructor(props){
             email:e
         })
         var self = this;
-        axios.post('http://localhost:5000/api/getQuiz', {})
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/getQuiz', {})
         .then(function(response){
             let data = response.data;
             let getQuiz = [];

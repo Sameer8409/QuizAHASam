@@ -7,7 +7,6 @@ import Help from './Components/Pages/Help';
 import Terms from './Components/Pages/Terms';
 import Signup from './Components/Pages/Signup';
 import Logout from './Components/Pages/Logout';
-import Result from './Components/Pages/Result';
 import PlayAlt from './Components/Pages/PlayAlt';
 import Footer from './Components/Include/Footer';
 import Aboutus from './Components/Pages/Aboutus';
@@ -47,7 +46,6 @@ export default class App extends Component {
         <Route path='/footer' component={Footer}/>
         <Route path='/logout' component={Logout}/>
         <Route path='/signup' component={Signup}/>
-        <Route path='/result' component={Result}/>
         <Route path='/forgot' component={Forgot}/>
         <Route path='/aboutus' component={Aboutus}/>
         <Route path='/contactus' component={Contactus}/>

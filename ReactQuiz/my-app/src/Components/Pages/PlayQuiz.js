@@ -78,7 +78,7 @@ export default class PlayQuiz extends Component{
         }
         
         var self=this;
-        axios.post('http://localhost:5000/api/getQuiz',{})
+        axios.post('http://sameer-intern.hestalabs.com:5000/api/getQuiz',{})
             .then(function(response){
                 let data = response.data;
                 let getQuiz = [];
@@ -123,37 +123,6 @@ export default class PlayQuiz extends Component{
             this.props.history.replace("/UserResult", this.state.x) 
         }
 
-    }
-    handleform =(event) => {
-        //event.preventDefault();
-        let ans = [];
-        let currectAns = [];
-        var count = 0;
-        for(let i=0;i< this.state.questions.length;i++)
-        {/*console.log("User", ans);
-                console.log("Actual", currectAns);*/}
-        for(let i = 0; i < this.state.questions.length;i++)
-        {
-        if(ans[i] === currectAns[i])
-        count = count+1;
-        }
-        let gameDetails=[];
-        gameDetails[0]=currectAns;
-        gameDetails[1]=ans;
-        gameDetails[2]=count;
-        this.total_score=gameDetails[2]
-        var self = this;
-        axios.post('http://localhost:5000/api/userRecord', {
-            email:localStorage.mydata,
-            quizName: this.state.quizName[self.state.q_no],
-            total_score:this.total_score
-        })
-        .then(function (response) {
-        })
-        .catch(function(err){
-            console.log("error");    
-        });
-        this.props.history.push('/Result',gameDetails);
     }
 
     render(){
