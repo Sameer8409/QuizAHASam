@@ -19,48 +19,88 @@ export default class Play extends Component{
             this.props.history.push("/")
         }
         var self = this
-        axios.post('http://sameer-intern.hestalabs.com:5000/api/showRecords', {
+        axios.post('http://localhost:5000/api/showRecords', {
         email:localStorage.mydata
         })
         .then(function (response) {
-            console.log(response.data[0].playTime);
+            console.log(response.data);
             let data = response.data
             let quiz = [];
             let time = [];
             let score = [];
-            data.forEach((data) => {
-                quiz.push(data.quizName);
-                time.push(data.playTime);
-                score.push(data.total_score);
-            });
-            self.setState({
-                quizName: quiz,
-                time:time,
-                score:score
-            });
+                data.forEach((data) => {
+                    quiz.push(data.quizName);
+                    time.push(data.playTime);
+                    score.push(data.total_score);
+                });
+                self.setState({
+                    quizName: quiz,
+                    time:time,
+                    score:score
+                });
+
+            
         })
-        .catch(function(err){
-        console.log("error", err);    
-        });   
-    }
+    .catch(function(err){
+    console.log("error", err);    
+    });   
+}
     handlePlay = (event) =>{
         event.preventDefault();
         this.props.history.push("/Game");
     } 
-    render(){
-        let index = this.state.quizName.map((data, index) => {
-            return (<li>  {index+1} </li> );
-        });
-        let quiz = this.state.quizName.map((data, index) => {
-            return (<li>  {data} </li> );
-        });
-        let score = this.state.score.map((data, index) => {
-            return (<li>  {data} </li> );
-         });
-        let time = this.state.time.map((data, index) => {
-            return (<li>  {data} </li> ); 
-        });
-    	return(
+render(){
+    var table1='';
+let index = this.state.quizName.map((data, index) => {
+        return (<li>  {index+1} </li> );
+    });
+ let quiz = this.state.quizName.map((data, index) => {
+        return (<li>  {data} </li> );
+    });
+let score = this.state.score.map((data, index) => {
+        return (<li>  {data} </li> );
+ });
+ let time = this.state.time.map((data, index) => {
+        return (<li>  {data} </li> );
+ });
+ if(index.length===0)
+ {
+    table1=<div className="Slidepanel">
+                <div className="slidePlay">
+                    <div className="card-header">
+                    Previous Record
+                    </div>
+                    <div className="card-body">
+                        <center><div className="over"><h1>Hello !</h1></div>
+                                <div className="final-result">You have not played any game yet!</div>
+                        </center>
+                    </div>
+                </div>    
+            </div>
+ }
+ else{
+ table1 = <div className="table-responsive">
+                <table className="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>S no.</th>
+                            <th>Played Quizes</th>
+                            <th>Scored</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{index}</td>
+                            <td>{quiz}</td>
+                            <td>{score}</td>
+                            <td>{time}</td>
+                       </tr>
+                    </tbody>
+                </table>
+            </div>
+    }
+	return(
             <div className="play">
                 <Header/>
                 <div className="container">
@@ -76,26 +116,7 @@ export default class Play extends Component{
                                         <div className="panel-body">
                                             <div className="row">
                                                 <div className="col-md-12">
-                                                    <div className="table-responsive">
-                                                        <table className="table table-bordered table-hover table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>S no.</th>
-                                                                    <th>Played Quizes</th>
-                                                                    <th>Scored</th>
-                                                                    <th>Date</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>{index}</td>
-                                                                    <td>{quiz}</td>
-                                                                    <td>{score}</td>
-                                                                    <td>{time}</td>
-                                                               </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                    {table1}
                                                 </div>
                                             </div>
                                         </div>
@@ -105,11 +126,13 @@ export default class Play extends Component{
                         </div>
                     </div>
                     <div className="row">
-                        <button type="button" className="btn btn-primary btn-lg btn-block" onClick={this.handlePlay}>Play</button>
+                        <div className="col-md-12 col-sm-12 col-xs-12">
+                            <button type="button" className="btn btn-default btn-lg btn-block" onClick={this.handlePlay}><h2>Play</h2></button>
+                        </div>
                     </div>
                 </div>
                 <Footer/>
             </div>
-        )
-    }
+    )
+}
 }

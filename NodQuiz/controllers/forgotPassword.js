@@ -19,22 +19,23 @@
             res.send("hello");
         })
     }
+
     exports.reset = (req,res) =>{
         try{
             async.series({
                 one:function(callback){
                 userModel.update({email:req.body.email}, {$set:{password:cryptr.encrypt(req.body.password)}},
                  (err, data)=>{
-                            const mydata={
-                                data:req.body.email,
-                                error:false,
-                                message:"user data"
-                                }
-                            res.send(mydata)                               
-                        }
-                    );
-                },            
-            })
+                                const mydata={
+                                    data:req.body.email,
+                                    error:false,
+                                    message:"user data"
+                                    }
+                                    res.send(mydata)                               
+                                });
+                            },
+                            
+                        })
         }
         catch(err){
             throw err;

@@ -25,13 +25,13 @@ export default class Game extends Component{
                 this.props.history.push("/Game")
             }
         var self=this;
-        axios.post('http://sameer-intern.hestalabs.com:5000/api/getQuiz',{})
+        axios.post('http://localhost:5000/api/getQuiz',{})
             .then(function(response){
                 let data = response.data;
-                console.log(data.quizName);
+                console.log(data.name);
                 let getQuiz = [];
                 data.forEach((data) => {
-                    getQuiz.push(data.quizName);
+                    getQuiz.push(data.name);
                 });
                 self.setState({
                     quizName: getQuiz
@@ -43,51 +43,60 @@ export default class Game extends Component{
         event.preventDefault();
         let x = [];
         x[0]=event.target.id;
-        x[1]= this.state.email;
+        x[1]= localStorage.mydata;
+        x[2]=0;
+        x[3]=0;
         console.log("Id",event.target.id);
         console.log("Value", this.state.email)
         this.props.history.push('/PlayQuiz', x);
-    }
-    render(){
-        console.log("histopry", this.state.email);
-        let list = this.state.quizName.map((data, index) => {
-            return (<li><div className="media">
-                            <div className="media-body">
-                                <h4>{data}</h4>
-                                <p>Want to play this game please click on play now coresponding to the Quiz Name</p>
+}
+render(){
+    console.log("histopry", this.state.email);
+    let list = this.state.quizName.map((data, index) => {
+        return (<li>
+                    <div className="media">
+                        <div className="row">
+                            <div className="col-md-9 col-sm-7 col-xs-12">
+                                <div className="media-body">
+                                    <h4>{data}</h4>
+                                    <p>Want to play this game please click on play now coresponding to the Quiz Name</p>
+                                </div>
                             </div>
-                            <div className="media-right align-self-center">
-                                <button id={index} type="button" onClick={this.handleQuiz} name="quizes" className="btn btn-default"> {"Play Now"} </button>
+                            <div className="col-md-3 col-sm-5 col-xs-12">
+                                <div className="media-right align-self-center">
+                                    <button id={index} type="button" onClick={this.handleQuiz} name="quizes" className="btn btn-default"> {"Play Now"} </button>
+                                </div>
                             </div>
                         </div>
-                    </li>
-                );
-            });
-        return(
-            <div className="Game">
-                <Header/>
-                <div className="game">
-                    <div className="constructor">
-                        <section className="row-section">
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <h2 className="text-center"><span>Quiz Game Listing</span>Created with <i className="fa fa-heart"></i> from<Link to="#"> Sameer Khan</Link></h2>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-12  col-sm-12  col-xs-10 row-block">
-                                        <ul id="sortable">
-                                            {list}                       
-                                        </ul>
-                                    </div>
-                                </div>
+                    </div>  
+                </li>
+            );
+        });
+
+	return(
+    <div className="Game">
+        <Header/>
+        <div className="game">
+            <div className="constructor">
+                <section className="row-section">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2 className="text-center"><span>Quiz Game Listing</span>Created with <i className="fa fa-heart"></i> from<Link to="#"> Sameer Khan</Link></h2>
                             </div>
-                        </section>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12  col-sm-12  col-xs-10 row-block">
+                                <ul id="sortable">
+                                    {list}                       
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>  
-                <Footer/>    
-            </div>   
-        )
-    }
+                </section>
+            </div>
+        </div>  
+        <Footer/>    
+    </div>   
+)}
 }

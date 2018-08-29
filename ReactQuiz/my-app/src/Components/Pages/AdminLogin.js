@@ -16,19 +16,23 @@ export default class AdminLogin extends Component{
             {
                 this.props.history.push("/Dashboard");
             }
-            let val= this.props.location.state;
-             this.setState({
-            	abc:val
-            })
-        }
+    	{/*console.log("Admin",this.props.location.state);*/}
+    let val= this.props.location.state;
+     this.setState({
+    	abc:val
+    })
+   
+     }
     }
     render(){
     	 if(this.state.abc==='admin@gmail.com')
     	{
     	 this.props.history.push("/Dashboard", "1");
     	}
-    	else{
-    		switch(this.state.abc){
+    	else
+    	{
+    		switch(this.state.abc)
+    		{
     			case "1": this.props.history.replace("/Dashboard", "1");
     			break;
     			case "2": this.props.history.replace("/UserManagement", "2");
@@ -40,8 +44,12 @@ export default class AdminLogin extends Component{
     			case "5": this.props.history.replace("/Play", "5");
                 break;
                 case "6": this.props.history.replace("/UpdateQuiz", "6");
+    			 
     		}
     	}
-    	return(<div>Hello there is some error</div>);
+    	return(<div>
+    		 
+    		</div>
+    		);
     }
 }

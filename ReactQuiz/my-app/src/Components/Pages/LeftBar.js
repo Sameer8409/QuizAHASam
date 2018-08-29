@@ -7,7 +7,7 @@ export default class LeftBar extends Component{
             abc:''
         }
     }
-    render(){
+render(){
         return(
             <div className="leftbar">
                 <div className="navbar navbar-inverse sidebar" role="navigation">
@@ -37,6 +37,6 @@ export default class LeftBar extends Component{
                     </div>
                 </div>
             </div>
-        );
+            );
+        }
     }
-}

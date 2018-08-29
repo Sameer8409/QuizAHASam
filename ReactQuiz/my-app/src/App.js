@@ -8,20 +8,22 @@ import Terms from './Components/Pages/Terms';
 import Signup from './Components/Pages/Signup';
 import Logout from './Components/Pages/Logout';
 import Result from './Components/Pages/Result';
+import PlayAlt from './Components/Pages/PlayAlt';
 import Footer from './Components/Include/Footer';
 import Aboutus from './Components/Pages/Aboutus';
 import LeftBar from './Components/Pages/LeftBar';
 import Header from './Components/Include/Header';
-import FirstHeader from './Components/Include/FirstHeader';
 import PlayQuiz from './Components/Pages/PlayQuiz';
 import Contactus from './Components/Pages/Contactus';
 import Reset from './Components/Pages/ResetPassword';
 import UserLogin from './Components/Pages/UserLogin';
 import Dashboard from './Components/Pages/Dashboard';
+import UserResult from './Components/Pages/UserResult';
 import AdminLogin from './Components/Pages/AdminLogin';
 import Forgot from './Components/Pages/ForgotPassword';
 import CreateQuiz from './Components/Pages/CreateQuiz';
 import UpdateQuiz from './Components/Pages/UpdateQuiz';
+import FirstHeader from './Components/Include/FirstHeader';
 import NumberofUsers from './Components/Pages/NumberofUsers';
 import NumberofTopics from './Components/Pages/NumberofTopics';
 import UserManagement from './Components/Pages/UserManagement';
@@ -41,7 +43,7 @@ export default class App extends Component {
         <Route path='/terms' component={Terms}/>
         <Route path='/reset' component={Reset}/>
         <Route path='/header' component={Header}/>
-        <Route path='/firstheader' component={FirstHeader}/>
+        <Route path='/playAlt' component={PlayAlt}/>
         <Route path='/footer' component={Footer}/>
         <Route path='/logout' component={Logout}/>
         <Route path='/signup' component={Signup}/>
@@ -54,6 +56,8 @@ export default class App extends Component {
         <Route path='/updateQuiz' component={UpdateQuiz}/>
         <Route path='/adminLogin' component={AdminLogin}/>
         <Route path='/createQuiz' component={CreateQuiz}/>
+        <Route path='/userresult' component={UserResult}/>
+        <Route path='/firstheader' component={FirstHeader}/>
         <Route path='/userManagement' component={UserManagement}/>
         <Route path='/quizManagement' component={QuizManagement}/>
       </Switch>

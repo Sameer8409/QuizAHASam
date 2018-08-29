@@ -1,4 +1,5 @@
     let userModel = require('../models/user');
+
     exports.index = (req, res) => {
         if (req.session && req.session.user) {
             res.redirect('/dashboard');
@@ -7,6 +8,7 @@
             res.render('login', {session: req.session});
         }
     }
+
     exports.myFirstApi1 = (req, res, next)=>{
     	try{
     		let data={
@@ -43,23 +45,23 @@
                     confirm_password:req.body.confirm_password,
                     doj:req.body.doj,
                     mobile:req.body.mobile
-                            }, (err, data)=>{
+                                }, (err, data)=>{
 
-                                const mydata={
-                                    data:data,
-                                    error:false,
-                                    message:"user data"
-                                }
+                                    const mydata={
+                                        data:data,
+                                        error:false,
+                                        message:"user data"
+                                    }
 
-                                res.send(mydata)
-                                
-                            });
-                        }
-                })
-            }
+                                    res.send(mydata)
+                                    
+                                });
+                            }
+                        })
+                    }
         });
     }
-    catch(err){
-    throw err;
-    }
-}
+            catch(err){
+            throw err;
+            }
+        }

@@ -20,10 +20,10 @@ export default class Dashboard extends Component{
         }
     }
     handlePageChange(pageNumber) {
-        console.log(`active page is ${pageNumber}`);
-        let activePage=pageNumber;
-        var self = this;
-        axios.post('http://sameer-intern.hestalabs.com:5000/api/userDetails', {activePage:pageNumber})
+    console.log(`active page is ${pageNumber}`);
+    let activePage=pageNumber;
+    var self = this;
+        axios.post('http://localhost:5000/api/userDetails', {activePage:pageNumber})
         .then(response=>{
             let data = response.data;
             let name = [];
@@ -63,14 +63,14 @@ export default class Dashboard extends Component{
                 this.props.history.push("/");
            }
             var self = this;
-            axios.post('http://sameer-intern.hestalabs.com:5000/api/totalUsers', {})
+            axios.post('http://localhost:5000/api/totalUsers', {})
             .then(response=>{
                 let totalRecords=response.data.length;
                 this.setState({
                     totalPages:totalRecords/5
                 })
             });
-            axios.post('http://sameer-intern.hestalabs.com:5000/api/userDetails', {activePage:1})
+            axios.post('http://localhost:5000/api/userDetails', {activePage:1})
             .then(function(response){
                 let data = response.data;
                 let name = [];
@@ -103,22 +103,22 @@ export default class Dashboard extends Component{
 
         }
     
-    render(){
-        let a=(this.state.activePage);
-        let index = this.state.names.map((Name, Index) => {
-            return (<li>{((a-1)*5)+Index+1}</li> );
-        });
-        let name = this.state.names.map((Name, index) => {
-            return (<li>{Name}</li> );
-        });
-        let email = this.state.emails.map((Email, index1) => {
-            return (<li> {Email}</li> );
-        });
-        let mobile = this.state.mobiles.map((Mobile, index2) => {
-            return (<li> {Mobile}</li> );
-        });
+render(){
+    let a=(this.state.activePage);
+    let index = this.state.names.map((Name, Index) => {
+        return (<li>{((a-1)*5)+Index+1}</li> );
+    });
+    let name = this.state.names.map((Name, index) => {
+        return (<li>{Name}</li> );
+    });
+    let email = this.state.emails.map((Email, index1) => {
+        return (<li> {Email}</li> );
+    });
+    let mobile = this.state.mobiles.map((Mobile, index2) => {
+        return (<li> {Mobile}</li> );
+    });
 
-        return(         
+    return(         
             <div className="Dashboard">
                 <Header/>
                 <div className="container-fluid">
