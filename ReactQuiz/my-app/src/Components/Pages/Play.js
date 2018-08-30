@@ -65,17 +65,23 @@ let score = this.state.score.map((data, index) => {
  });
  if(index.length===0)
  {
-    table1=<div className="Slidepanel">
-                <div className="slidePlay">
-                    <div className="card-header">
-                    Previous Record
-                    </div>
-                    <div className="card-body">
-                        <center><div className="over"><h1>Hello !</h1></div>
-                                <div className="final-result">You have not played any game yet!</div>
-                        </center>
-                    </div>
-                </div>    
+    table1=<div className="container">
+                <div className="row">
+                    <div className="col-md-12">
+                        <div className="Slidepanel">
+                            <div className="slidePlay">
+                                <div className="card-header">
+                                Previous Record
+                                </div>
+                                <div className="card-body">
+                                    <center><div className="over"><h1>Hello !</h1></div>
+                                            <div className="final-result">You have not played any game yet!</div>
+                                    </center>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
             </div>
  }
  else{
@@ -114,11 +120,8 @@ let score = this.state.score.map((data, index) => {
                                     <div className="panel-heading">
                                         <i className="fa fa-bar-chart-o fa-fw"></i>players
                                         <div className="panel-body">
-                                            <div className="row">
-                                                <div className="col-md-12">
+                                            
                                                     {table1}
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>

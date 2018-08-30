@@ -33,7 +33,7 @@ body {
   background-color: #6B456A;
 }
 .UserLogin{
- background-color: orange; 
+ background-color: orange;
 }
 #page-wrapper button{
   background-color: green;
@@ -63,18 +63,22 @@ button a{
 }
 .play .card-body{
   margin-top:30px; 
-  height:330px;
+  height:100%;
 }
 .playquiz h2{
   color:#fff;
   margin-bottom: 50px;
 }
+.play .panel-heading {
+  min-width:100%;
+}
 .play .Slidepanel{
-  max-height: 200px;
+  min-height: 200px;
   margin-bottom: 20px;
+  min-width:100%;
 }
 .play .Slidepanel .slidePlay{
-  max-height: 200px;
+  min-height: 200px;
 }
 form {
   margin-bottom: 30px;

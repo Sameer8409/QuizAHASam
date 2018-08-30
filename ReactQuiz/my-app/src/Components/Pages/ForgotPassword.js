@@ -97,8 +97,14 @@ export default class Forgot extends Component{
             <FirstHeader/>
         <div className="container">
             <div className="row">
-                <div clissName="col-md-12">
-                <center><h1>Reset/Update Password   STEP 1 of 2</h1><h2>please enter your email address and registered Mobile Number</h2></center>
+                <div className = "col-md-3 col-sm-2 col-xs-1">
+                </div>
+                <div clissName="col-md-12 col-sm-12 col-xs-12">
+                    <center><h1>Reset/Update Password   STEP 1 of 2</h1>
+                    <h2>please enter your email address and registered Mobile Number</h2>
+                    </center>
+                </div>
+                <div className = "col-md-3 col-sm-2 col-xs-1">
                 </div>
             </div>
             <div className = "row">
