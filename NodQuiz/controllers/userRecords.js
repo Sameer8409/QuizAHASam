@@ -4,6 +4,7 @@ var date = new Date();
 exports.userRecords = (req, res)=>{
     userModel.find({email:req.body.email})
     .then((result)=>{
+        console.log(date)
         if(result != null)
         {
             resultModel.create({
